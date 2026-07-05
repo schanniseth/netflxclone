@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Netflex - Home{% endblock %}
+
+{% block content %}
+{% if featured %}
+<section class="hero" style="background-image: url('{{ featured.backdrop_url }}');">
+    <div class="hero-content">
+        <h1 class="hero-title">{{ featured.title }}</h1>
+        <p class="hero-overview">{{ featured.overview|truncatewords:30 }}</p>
+        <div class="hero-buttons">
+            <a href="{% url 'watch' featured.id %}" class="btn btn-play">▶ Play</a>
+            <a href="{% url 'movie_detail' featured.id %}" class="btn btn-info">ⓘ More Info</a>
+        </div>
+    </div>
+    <div class="hero-fade"></div>
+</section>
+{% endif %}
+
+<main class="main-content" id="main-content">
+
+    {% if continue_watching %}
+    <section class="row">
+        <h2 class="row-title">Continue Watching for {{ request.profile.name }}</h2>
+        <div class="row-container">
+            <div class="row-posters">
+                {% for cw in continue_watching %}
+                <a class="movie-card" href="{% url 'watch' cw.movie.id %}">
+                    {% if cw.movie.poster_url %}
+                    <img src="{{ cw.movie.poster_url }}" alt="{{ cw.movie.title }}">
+                    {% else %}
+                    <div class="no-poster">{{ cw.movie.title }}</div>
+                    {% endif %}
+                    <div class="progress-track"><div class="progress-fill" style="width:{{ cw.percent }}%;"></div></div>
+                    <div class="movie-card-title">{{ cw.movie.title }}</div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    {% if recommended %}
+    <section class="row">
+        <h2 class="row-title">Recommended for {{ request.profile.name }}</h2>
+        <div class="row-container">
+            <div class="row-posters">
+                {% for movie in recommended %}
+                {% include "movies/_movie_card.html" with movie=movie %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    {% for category in categories %}
+    <section class="row">
+        <h2 class="row-title">{{ category.name }}</h2>
+        <div class="row-container">
+            <button class="scroll-arrow scroll-left" aria-label="Scroll left">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <div class="row-posters">
+                {% for movie in category.movies.all %}
+                {% include "movies/_movie_card.html" with movie=movie %}
+                {% endfor %}
+            </div>
+            <button class="scroll-arrow scroll-right" aria-label="Scroll right">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </div>
+    </section>
+    {% endfor %}
+</main>
+{% endblock %}

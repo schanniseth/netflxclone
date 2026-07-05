@@ -1,0 +1,198 @@
+/* =====================================================================
+   RESPONSIVE FIXES
+   Load this AFTER site.css. It only overrides layout/spacing rules
+   that broke on small screens — it does not redesign anything.
+   ===================================================================== */
+
+/* ---- Global safety net ---- */
+img, svg { max-width: 100%; }
+html { -webkit-text-size-adjust: 100%; }
+body { overflow-x: hidden; }
+
+/* =====================================================================
+   Contact Us page (contactus.html)
+   ===================================================================== */
+@media (max-width: 600px) {
+    .navbar {
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 16px 20px;
+    }
+    .container {
+        margin: 24px auto;
+        padding: 0 16px;
+    }
+    h1 { font-size: 26px; }
+    .subtitle { font-size: 15px; margin-bottom: 22px; }
+    .quick-links { margin-top: 50px; }
+    .card { padding: 22px; }
+}
+
+/* =====================================================================
+   Help Center header / hero / search (helpcenter.html, faq.html)
+   ===================================================================== */
+@media (max-width: 900px) {
+    .helpcenter-box {
+        padding: 14px 20px;
+        margin: 0;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    .helpcentertitle { margin-bottom: 0; }
+    .helpcenter-divider { margin-left: 0; }
+    .logoinhelpcenter { width: 120px; }
+    .helpcenterlogin {
+        margin-top: 0;
+        margin-right: 0;
+    }
+    .helpecenter-main {
+        margin-top: 90px;
+        padding: 40px 16px 0;
+    }
+    .helpecenter-main-title { font-size: 30px; }
+    .helpcenterexplore { margin-top: 60px; }
+    .helpcenter-footer { padding: 32px 20px 40px; }
+    .helpcenter-footer-langbtn { width: 100%; max-width: 260px; }
+    .helpcenterquestions { padding: 30px 16px 70px; }
+    .helpcenterstickybar,
+    .helpcenter-stickybar { padding: 16px 16px 14px; }
+}
+
+@media (max-width: 480px) {
+    .helpecenter-main-title { font-size: 24px; }
+    .helpcenter-title { font-size: 15px; }
+    .helpcenter-actions { gap: 8px; }
+    .helpcenterquestions-category { padding: 16px; gap: 8px; }
+    .helpcenterquestions-category-title { font-size: 17px; }
+    .helpcenterquestions-group-title { padding: 14px 16px; font-size: 15px; }
+    .helpcenterquestions-list { padding: 0 16px 14px; }
+    .helpcenter-needmorehelp-title { font-size: 19px; }
+    .helpcenter-contactus { padding: 12px 30px; font-size: 15px; }
+}
+
+/* =====================================================================
+   Help article pages (faq.html "What is Netflix?" + any article page,
+   and the Terms-of-Use-style back-link bar reused on faq.html)
+   ===================================================================== */
+@media (max-width: 700px) {
+    .article-wrapper {
+        padding: 0 20px 60px;
+        gap: 30px;
+        margin-top: 24px;
+    }
+    .article-extra { padding: 0 20px 40px; }
+    .article-title { font-size: 26px; }
+    .article-section-title { font-size: 22px; }
+    .termsofuse-topbar {
+        padding: 0 20px;
+        margin-top: 24px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .article-title { font-size: 22px; }
+    .article-section-title { font-size: 19px; }
+    .article-helpful { flex-wrap: wrap; gap: 10px; }
+}
+
+/* =====================================================================
+   Investor Relations (investorrel.html) — already mostly responsive,
+   just tighten the smallest phones a bit further.
+   ===================================================================== */
+@media (max-width: 380px) {
+    .ir-hero-title { font-size: 26px; }
+    .ir-logo-subtext { display: none; }
+    .ir-alert-btn span { display: none; }
+}
+
+/* =====================================================================
+   Landing page (landing.html) — header, hero signup, trending row,
+   reasons/FAQ sections, footer link columns.
+   ===================================================================== */
+@media (max-width: 600px) {
+    .head {
+        padding: 16px 20px;
+        margin-top: 0;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .logo { width: 140px; }
+    .btn--signin { margin-top: 0; padding: 8px 18px; font-size: 14px; }
+
+    .hero { margin-top: 10px; padding: 0 16px; }
+    .shortdes { font-size: 22px; }
+    .shortdes h5 { font-size: 14px; }
+}
+
+@media (max-width: 480px) {
+    .signup {
+        flex-direction: column;
+        width: 100%;
+        max-width: 320px;
+        margin: 5px auto 0;
+        gap: 10px;
+    }
+    .signup__input { width: 100%; }
+    .btn--signup { width: 100%; }
+}
+
+@media (max-width: 768px) {
+    .trending { margin: 0 50px; gap: 30px; }
+    .poster { width: 160px; height: 240px; }
+    .scroll-btn { height: 240px; }
+    .posternumber { font-size: 60px; left: -20px; bottom: 20px; -webkit-text-stroke: 3px white; }
+    .trending-title { padding-left: 20px; font-size: 24px; }
+    .arc-section { height: 340px; margin-top: 60px; }
+}
+
+@media (max-width: 480px) {
+    .trending { margin: 0 34px; gap: 16px; }
+    .poster { width: 120px; height: 180px; border-radius: 12px; }
+    .scroll-btn { height: 180px; width: 32px; }
+    .posternumber { font-size: 40px; left: -12px; bottom: 10px; -webkit-text-stroke: 2px white; }
+    .content-container { top: 40px; }
+    .arc-section { height: 260px; margin-top: 40px; }
+}
+
+@media (max-width: 600px) {
+    .reasons-inner, .faqinner, .footer-inner { padding: 0 20px; }
+    .reasons-title, .faqtitle { font-size: 24px; }
+    .faqtitle, .bottomtext { margin-top: 0; }
+    .reason-card { padding: 26px; min-height: auto; }
+    .faq-question { font-size: 17px; padding: 18px 20px; }
+    .faq-answer { padding: 0 20px 20px; }
+    .faq-answer p { font-size: 15px; }
+}
+
+@media (max-width: 992px) {
+    .footerlinks { flex-wrap: wrap; gap: 40px 60px; }
+}
+
+@media (max-width: 600px) {
+    .footerlinks { flex-direction: column; gap: 28px; }
+    .col1, .col2, .col3 { gap: 12px; }
+    .questions { font-size: 18px; }
+    .lang-selector { margin-top: 20px; }
+}
+
+/* =====================================================================
+   Sign In / Sign Up pages (signin.html, signup.html)
+   ===================================================================== */
+@media (max-width: 600px) {
+    .logoinsignin { margin-left: 20px; margin-top: -10px; width: 140px; }
+    .dividersignin { margin-bottom: 20px; }
+    .devices-icons { gap: 10px; }
+    .devices-icons i, .devices-icons svg { width: 48px; height: 48px; }
+    .welcometonetflix { font-size: 32px; }
+    .startwatching p { font-size: 18px; }
+    .startwatching { padding: 0 16px; text-align: center; margin-bottom: 24px; }
+    .freewatching { margin-top: 30px; padding: 0 16px; }
+    .signin-card { padding: 26px 20px 24px; margin: 0 16px; max-width: none; }
+    .signin-card__title { font-size: 24px; }
+    .signin footer { padding: 32px 20px; }
+    .signincols { flex-direction: column; gap: 24px; }
+    .colu1, .colu2, .colu3, .colu4 { gap: 12px; }
+    .signinfooter p { font-size: 16px; }
+}

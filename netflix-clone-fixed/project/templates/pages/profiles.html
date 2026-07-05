@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Who's Watching? - Netflex</title>
+    <link rel="icon" href="{% static 'pic/netflix.webp' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="profiles-body">
+    <a href="{% url 'landing' %}" class="profiles-logo">
+        <img src="{% static 'img/netflixname.png' %}" alt="Netflex">
+    </a>
+    <main class="profiles-screen">
+        <h1>Who's watching?</h1>
+        <div class="profiles-grid">
+            {% for profile in profiles %}
+            <a class="profile-tile" href="{% url 'select_profile' profile.id %}">
+                <div class="profile-tile-avatar avatar-{{ profile.avatar_color }}">{{ profile.initial }}</div>
+                <span>{{ profile.name }}</span>
+            </a>
+            {% endfor %}
+            <a class="profile-tile profile-tile-add" href="{% url 'manage_profiles' %}">
+                <div class="profile-tile-avatar avatar-add">+</div>
+                <span>Add Profile</span>
+            </a>
+        </div>
+        <a href="{% url 'manage_profiles' %}" class="btn-manage-profiles">Manage Profiles</a>
+    </main>
+</body>
+</html>

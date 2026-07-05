@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}My List - Netflex{% endblock %}
+
+{% block content %}
+<main class="main-content" id="main-content" style="padding-top:120px;">
+    <section class="mylist-page">
+        <h2 class="row-title">My List</h2>
+        {% if not entries %}
+        <div class="mylist-empty">
+            <p>Your list is empty.</p>
+            <p class="subtitle">Add movies to your list by clicking the + button on a movie card.</p>
+        </div>
+        {% else %}
+        <div class="results-grid">
+            {% for entry in entries %}
+            {% include "movies/_movie_card.html" with movie=entry.movie %}
+            {% endfor %}
+        </div>
+        {% endif %}
+    </section>
+</main>
+{% endblock %}

@@ -1,0 +1,786 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflex Cambodia - Browse</title>
+    <link rel="icon" href="{% static 'pic/netflix.webp' %}">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #141414;
+            color: #ffffff;
+            padding: 20px 0;
+            overflow-x: hidden;
+        }
+
+        /* Header Navigation */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 60px;
+            background-color: transparent;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 80px; /* Matches original font-size sizing */
+            display: block;
+        }
+
+        .btn-signin {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 7px 17px;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        /* Hero Banner Container */
+        .hero-container {
+            position: relative;
+            max-width: 1400px;
+            margin: 10px auto 50px auto;
+            height: 550px;
+            border-radius: 24px;
+            overflow: hidden;
+            background: linear-gradient(to top, rgba(20, 20, 20, 1) 15%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.7)), 
+                        url('image_f8b786.jpg') no-repeat center/cover;
+            display: flex;
+            align-items: flex-end;
+            padding: 60px;
+            border: 1px solid #222;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-content p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #e5e5e5;
+            margin-bottom: 24px;
+        }
+
+        /* Form Group */
+        .cta-form {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .email-input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 14px 24px;
+            color: #ffffff;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .email-input::placeholder {
+            color: #b3b3b3;
+        }
+
+        .btn-join {
+            background-color: #E50914;
+            color: #ffffff;
+            border: none;
+            border-radius: 25px;
+            padding: 14px 36px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-join:hover {
+            background-color: #b80710;
+        }
+
+        .subtext {
+            font-size: 14px;
+            color: #cccccc;
+        }
+
+        /* Content Rows Area */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 60px;
+        }
+
+        .genre-section {
+            margin-bottom: 45px;
+        }
+
+        .genre-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #e5e5e5;
+        }
+
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 16px;
+        }
+
+        .movie-card {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            border-radius: 6px;
+            overflow: hidden;
+            background: #181818;
+            padding-bottom: 12px;
+        }
+
+        .movie-card:hover {
+            transform: scale(1.05);
+            z-index: 10;
+            box-shadow: 0px 10px 20px rgba(0,0,0,0.5);
+        }
+
+        .movie-thumbnail {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background-color: #2f2f2f;
+            object-fit: cover;
+            display: block;
+        }
+
+        .movie-details {
+            padding: 10px 12px 0 12px;
+        }
+
+        .movie-info {
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .movie-meta {
+            font-size: 12px;
+            color: #46d369;
+            margin-top: 4px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .maturity-rating {
+            border: 1px solid rgba(255,255,255,0.4);
+            padding: 0 4px;
+            color: #e5e5e5;
+            font-size: 10px;
+            border-radius: 2px;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            max-width: 1000px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .faq-section h2 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+
+        .faq-item {
+            background: #2d2d2d;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 24px;
+            font-size: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .faq-question:hover {
+            background: #414141;
+        }
+
+        /* Plans Section (image_f8c94d.jpg) */
+        .plans-container {
+            max-width: 1400px;
+            margin: 60px auto;
+            padding: 0 60px;
+        }
+
+        .plans-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 24px;
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .plan-card {
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 340px;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .plan-card.mobile { background: linear-gradient(135deg, #10223d 0%, #15161e 100%); }
+        .plan-card.basic { background: linear-gradient(135deg, #112a45 0%, #15161e 100%); }
+        .plan-card.standard { background: linear-gradient(135deg, #2e164d 0%, #15161e 100%); }
+        .plan-card.premium { background: linear-gradient(135deg, #42123b 0%, #15161e 100%); }
+
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            right: 16px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 4px 12px;
+            border-radius: 12px;
+            backdrop-filter: blur(5px);
+        }
+
+        .plan-header h3 {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .plan-resolution {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .plan-features li {
+            font-size: 14px;
+            line-height: 1.4;
+            margin-bottom: 12px;
+            color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .plan-features li::before {
+            content: '✓';
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: bold;
+        }
+
+        .plan-price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        /* Promo Highlight Banner */
+        .promo-banner {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('image_f8b786.jpg') no-repeat center/cover;
+            background-size: cover;
+            border-radius: 16px;
+            padding: 24px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .promo-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .btn-promo-more {
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 20px;
+            padding: 10px 24px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Tudum Notification bar */
+        .tudum-bar {
+            background-color: #232323;
+            border-radius: 12px;
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: #cccccc;
+            margin-bottom: 40px;
+        }
+
+        .tudum-icon {
+            font-weight: 900;
+            font-size: 18px;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .tudum-bar a {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        /* Central CTA area */
+        .center-cta {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 60px;
+        }
+
+        .btn-center-join {
+            background-color: #E50914;
+            color: #ffffff;
+            border: none;
+            border-radius: 30px;
+            padding: 16px 64px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-center-join:hover {
+            background-color: #b80710;
+        }
+
+        /* Footer Section */
+        footer {
+            max-width: 1000px;
+            margin: 80px auto 40px auto;
+            padding: 0 60px;
+            color: #737373;
+            font-size: 14px;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-links a {
+            color: #737373;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        .siginbuttoninonly{
+            text-decoration: none;
+            color: black;
+        }
+        .netflixonly{
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        /* ---- Responsive ---- */
+        @media (max-width: 900px) {
+            header { padding: 10px 24px; }
+            .logo img { height: 50px; }
+            .hero-container { padding: 40px 30px; height: auto; min-height: 420px; }
+            .hero-content h1 { font-size: 34px; }
+            .main-content { padding: 0 24px; }
+            .plans-container { padding: 0 24px; }
+            .plans-grid { grid-template-columns: repeat(2, 1fr); }
+            .promo-banner { padding: 20px 24px; }
+            footer { padding: 0 24px; }
+            .footer-links { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 600px) {
+            header { padding: 10px 16px; }
+            .logo img { height: 40px; }
+            .hero-container {
+                border-radius: 12px;
+                padding: 28px 20px;
+                min-height: 380px;
+                margin: 10px auto 30px;
+            }
+            .hero-content { max-width: 100%; }
+            .hero-content h1 { font-size: 26px; }
+            .hero-content p { font-size: 14px; }
+            .cta-form { flex-direction: column; align-items: stretch; }
+            .btn-join { width: 100%; }
+            .genre-title { font-size: 18px; }
+            .movie-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+            .faq-section { margin: 50px auto; padding: 0 16px; }
+            .faq-section h2 { font-size: 24px; }
+            .faq-question { font-size: 16px; padding: 18px; }
+            .plans-container { margin: 30px auto; padding: 0 16px; }
+            .plans-title { font-size: 22px; }
+            .plans-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .plan-card { padding: 18px; min-height: auto; }
+            .promo-banner { flex-direction: column; align-items: flex-start; gap: 14px; padding: 20px; }
+            .tudum-bar { flex-wrap: wrap; padding: 14px 16px; }
+            .btn-center-join { padding: 14px 40px; width: 100%; }
+            footer { padding: 0 16px; margin: 50px auto 30px; }
+            .footer-links { grid-template-columns: 1fr 1fr; gap: 12px; }
+        }
+
+        @media (max-width: 380px) {
+            .plans-grid { grid-template-columns: 1fr; }
+            .footer-links { grid-template-columns: 1fr; }
+            .movie-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <a class="netflixonly" href="{% url 'landing' %}">
+                <img src="{% static 'pic/netflixname.png' %}" alt="Netflix Logo">
+            </a>
+        </div>
+        <button class="btn-signin"><a class="siginbuttoninonly" href="{% url 'signin' %}">Sign In</a></button>
+    </header>
+
+    <main class="hero-container">
+        <div class="hero-content">
+            <h1>Only on Netflex</h1>
+            <p>Netflex is the home of amazing original programming that you can't find anywhere else. Movies, TV shows, specials and more, all tailored specifically to you.</p>
+            
+            <div class="cta-form">
+                <input type="email" class="email-input" placeholder="Email address">
+                <button class="btn-join">Join Now</button>
+            </div>
+            
+            <div class="subtext">Endless entertainment starting at USD 2.99</div>
+        </div>
+    </main>
+
+    <div class="main-content">
+        
+        <section class="genre-section">
+            <h2 class="genre-title">Trending Now</h2>
+            <div class="movie-grid">
+                <div class="movie-card">
+                    <div class="movie-thumbnail" style="background: linear-gradient(45deg, #1f1c2c, #928dab);"></div>
+                    <div class="movie-details">
+                        <div class="movie-info">Teach You a Lesson</div>
+                        <div class="movie-meta">98% Match <span class="maturity-rating">16+</span></div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="movie-thumbnail" style="background: linear-gradient(45deg, #3a1c1c, #d76d77);"></div>
+                    <div class="movie-details">
+                        <div class="movie-info">I Will Find You</div>
+                        <div class="movie-meta">95% Match <span class="maturity-rating">18+</span></div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="movie-thumbnail" style="background: linear-gradient(45deg, #0f2027, #203a43);"></div>
+                    <div class="movie-details">
+                        <div class="movie-info">The Last Airbender</div>
+                        <div class="movie-meta">97% Match <span class="maturity-rating">13+</span></div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="movie-thumbnail" style="background: linear-gradient(45deg, #1d2671, #c33764);"></div>
+                    <div class="movie-details">
+                        <div class="movie-info">If Wishes Could Kill</div>
+                        <div class="movie-meta">92% Match <span class="maturity-rating">16+</span></div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="movie-thumbnail" style="background: linear-gradient(45deg, #134e5e, #71b280);"></div>
+                    <div class="movie-details">
+                        <div class="movie-info">Sex/Life</div>
+                        <div class="movie-meta">89% Match <span class="maturity-rating">18+</span></div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="movie-thumbnail" style="background: linear-gradient(45deg, #41295a, #2f0743);"></div>
+                    <div class="movie-details">
+                        <div class="movie-info">One Piece</div>
+                        <div class="movie-meta">99% Match <span class="maturity-rating">13+</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="genre-section">
+            <h2 class="genre-title">Blockbuster Movies</h2>
+            <div class="movie-grid">
+                <div class="movie-card">
+                    <div class="movie-thumbnail" style="background: linear-gradient(45deg, #000428, #004e92);"></div>
+                    <div class="movie-details">
+                        <div class="movie-info">Despicable Me 4</div>
+                        <div class="movie-meta">94% Match <span class="maturity-rating">7+</span></div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="movie-thumbnail" style="background: linear-gradient(45deg, #2c3e50, #bdc3c7);"></div>
+                    <div class="movie-details">
+                        <div class="movie-info">First They Killed My Father</div>
+                        <div class="movie-meta">96% Match <span class="maturity-rating">16+</span></div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="movie-thumbnail" style="background: linear-gradient(45deg, #5b391e, #a8794c);"></div>
+                    <div class="movie-details">
+                        <div class="movie-info">The Gray Man</div>
+                        <div class="movie-meta">91% Match <span class="maturity-rating">18+</span></div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="movie-thumbnail" style="background: linear-gradient(45deg, #02111d, #0779e4);"></div>
+                    <div class="movie-details">
+                        <div class="movie-info">Stranger Things</div>
+                        <div class="movie-meta">99% Match <span class="maturity-rating">16+</span></div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="movie-thumbnail" style="background: linear-gradient(45deg, #114b30, #46d369);"></div>
+                    <div class="movie-details">
+                        <div class="movie-info">Squid Game</div>
+                        <div class="movie-meta">98% Match <span class="maturity-rating">18+</span></div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="movie-thumbnail" style="background: linear-gradient(45deg, #400000, #ff4d4d);"></div>
+                    <div class="movie-details">
+                        <div class="movie-info">Red Notice</div>
+                        <div class="movie-meta">88% Match <span class="maturity-rating">13+</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="faq-section">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <div class="faq-question">What is Netflex? <span>+</span></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">How much does Netflex cost? <span>+</span></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">Where can I watch? <span>+</span></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">How do I cancel? <span>+</span></div>
+        </div>
+    </section>
+
+    <section class="plans-container">
+        <h2 class="plans-title">A Plan To Suit Your Needs</h2>
+        
+        <div class="plans-grid">
+            <div class="plan-card mobile">
+                <div class="plan-header">
+                    <h3>Mobile</h3>
+                    <div class="plan-resolution">480p</div>
+                </div>
+                <ul class="plan-features">
+                    <li>Fair video quality</li>
+                    <li>For your phone or tablet</li>
+                </ul>
+                <div class="plan-price">USD 2.99 /mo</div>
+            </div>
+
+            <div class="plan-card basic">
+                <div class="plan-header">
+                    <h3>Basic</h3>
+                    <div class="plan-resolution">720p</div>
+                </div>
+                <ul class="plan-features">
+                    <li>Good video quality</li>
+                    <li>For your phone, tablet, laptop and TV</li>
+                </ul>
+                <div class="plan-price">USD 3.99 /mo</div>
+            </div>
+
+            <div class="plan-card standard">
+                <div class="plan-header">
+                    <h3>Standard</h3>
+                    <div class="plan-resolution">1080p</div>
+                </div>
+                <ul class="plan-features">
+                    <li>Great video quality</li>
+                    <li>For your phone, tablet, laptop and TV</li>
+                </ul>
+                <div class="plan-price">USD 7.99 /mo</div>
+            </div>
+
+            <div class="plan-card premium">
+                <div class="popular-badge">Most Popular</div>
+                <div class="plan-header">
+                    <h3>Premium</h3>
+                    <div class="plan-resolution">4K + HDR</div>
+                </div>
+                <ul class="plan-features">
+                    <li>Best video quality</li>
+                    <li>Immersive sound (spatial audio)</li>
+                    <li>For your phone, tablet, laptop and TV</li>
+                </ul>
+                <div class="plan-price">USD 9.99 /mo</div>
+            </div>
+        </div>
+
+        <div class="promo-banner">
+            <div class="promo-text">Discover your next favorites, plus new releases every week</div>
+            <button class="btn-promo-more">More About Netflex</button>
+        </div>
+
+        <div class="tudum-bar">
+            <div class="tudum-icon">T</div>
+            <div>Read about Netflex TV shows and movies and watch bonus videos on <a href="#">Tudum.com</a>.</div>
+        </div>
+
+        <div class="center-cta">
+            <button class="btn-center-join">Join Now</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>Questions? Contact us.</p>
+        <div class="footer-links">
+            <a href="{% url 'faq' %}">FAQ</a>
+            <a href="{% url 'helpcenter' %}">Help Center</a>
+            <a href="{% url 'signin' %}">Account</a>
+            <a href="{% url 'mediacenter' %}">Media Center</a>
+            <a href="{% url 'investorrel' %}">Investor Relations</a>
+            <a href="{% url 'job' %}">Jobs</a>
+            <a href="{% url 'waystowatch' %}">Ways to Watch</a>
+            <a href="{% url 'termofuse' %}">Terms of Use</a>
+            <a href="{% url 'privacy' %}">Privacy</a>
+            <a href="{% url 'corporateinfo' %}">Corporate Information</a>
+            <a href="{% url 'helpcenter' %}">Contact Us</a>
+        </div>
+        <p style="font-size: 12px;">Netflex Cambodia</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const emailInput = document.querySelector('.email-input');
+            const joinBtn = document.querySelector('.btn-join');
+            const centerJoinBtn = document.querySelector('.btn-center-join');
+
+            const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+            async function handleJoin() {
+                const email = (emailInput.value || '').trim();
+
+                if (!isValidEmail(email)) {
+                    emailInput.style.border = '2px solid #e50914';
+                    emailInput.focus();
+                    return;
+                }
+
+                const originalText = joinBtn.textContent;
+                joinBtn.disabled = true;
+                joinBtn.textContent = 'Checking...';
+
+                try {
+                    const res = await fetch('/api/check-email', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email })
+                    });
+                    const data = await res.json();
+
+                    // Existing users go to sign in, new emails go to sign up.
+                    const destination = data.exists ? 'signin.html' : 'signup.html';
+                    window.location.href = `${destination}?email=${encodeURIComponent(email)}`;
+                } catch (err) {
+                    console.error('check-email error:', err);
+                    // If the server/DB is unreachable, fall back to sign up instead of blocking the user.
+                    window.location.href = `signup.html?email=${encodeURIComponent(email)}`;
+                } finally {
+                    joinBtn.disabled = false;
+                    joinBtn.textContent = originalText;
+                }
+            }
+
+            joinBtn.addEventListener('click', handleJoin);
+            emailInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') handleJoin();
+            });
+            emailInput.addEventListener('input', () => {
+                emailInput.style.border = '';
+            });
+
+            if (centerJoinBtn) {
+                centerJoinBtn.addEventListener('click', () => {
+                    emailInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    emailInput.focus();
+                });
+            }
+        });
+    </script>
+</body>
+</html>

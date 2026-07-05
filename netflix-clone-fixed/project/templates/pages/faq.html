@@ -1,0 +1,197 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What is Netflex? | Netflex</title>
+    <link rel="icon" href="{% static 'pic/netflix.webp' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Inter:wght@700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/site.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive-fixes.css' %}">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="{% static 'js/site.js' %}" defer></script>
+</head>
+<body class="signin">
+    <div class="helpcenter-box">
+        <div class="helpcentertitle">
+            <a href="{% url 'landing' %}"><img src="{% static 'pic/nname.png' %}" class="logoinhelpcenter"></a>
+            <div class="helpcenterheader">
+                <span class="helpcenter-divider"></span>
+                <span class="helpcenter-title"><a href="{% url 'helpcenter' %}">Help Center</a></span>
+            </div>
+        </div>
+        <div class="helpcenter-actions">
+            <button class="helpcenterlogin"><a href="{% url 'signin' %}">Sign In</a></button>
+        </div>
+    </div>
+    <hr class="helpcenterdivider">
+
+    <div class="termsofuse-topbar">
+        <a href="{% url 'helpcenter' %}" class="termsofuse-back">
+            <i data-lucide="arrow-left" class="termsofuse-back-icon"></i>
+            Back to Help Home
+        </a>
+    </div>
+
+    <div class="article-wrapper">
+        <div class="article-main">
+            <h1 class="article-title">What is Netflex?</h1>
+
+            <div class="article-hero">
+                <img src="{% static 'pic/faq1stimg.jpg' %}" alt="netflex on TV, laptop and phone">
+            </div>
+
+            <div class="article-body">
+                <p>netflex is a subscription-based <a href="#" class="article-link">streaming service</a> that allows our members to watch TV shows and movies on an internet-connected device.</p>
+                <p><a href="#" class="article-link">Depending on your plan</a>, you can also <a href="#" class="article-link">download TV shows and movies</a> to your Android phone or tablet, iPhone, iPad, or Google Chromebook device and watch without an internet connection.</p>
+                <p>If you're already a member and would like to learn more about using netflex, visit <a href="#" class="article-link">Getting started with netflex</a>.</p>
+            </div>
+        </div>
+
+        <aside class="article-sidebar">
+            <h2 class="article-sidebar-title">Related Articles</h2>
+            <ul class="article-sidebar-list">
+                <li>
+                    <i data-lucide="file-text"></i>
+                    <a href="#">Getting started with netflex</a>
+                </li>
+                <li>
+                    <i data-lucide="file-text"></i>
+                    <a href="#">Billing and Payments</a>
+                </li>
+                <li>
+                    <i data-lucide="file-text"></i>
+                    <a href="#">netflex Gift Cards</a>
+                </li>
+                <li>
+                    <i data-lucide="file-text"></i>
+                    <a href="#">Can't sign in to netflex</a>
+                </li>
+                <li>
+                    <i data-lucide="file-text"></i>
+                    <a href="#">How to create, edit, or delete profiles</a>
+                </li>
+            </ul>
+        </aside>
+    </div>
+
+    <div class="article-extra">
+        <hr class="article-divider">
+
+        <div class="article-section">
+            <h2 class="article-section-title">TV Shows &amp; Movies</h2>
+
+            <div class="article-section-hero">
+                <img src="{% static 'pic/fawtvshow.jpg' %}" alt="netflex TV shows and movies cover art">
+            </div>
+
+            <div class="article-body">
+                <p>netflex content varies by region and may change over time. You can watch a variety of <a href="#" class="article-link">award-winning netflex originals, TV shows, movies, documentaries, and more</a>.</p>
+                <p>The more you watch, the better netflex gets at <a href="#" class="article-link">recommending</a> TV shows and movies.</p>
+            </div>
+        </div>
+
+        <hr class="article-divider">
+
+        <div class="article-section">
+            <h2 class="article-section-title">Supported Devices</h2>
+
+            <div class="article-section-hero">
+                <img src="{% static 'pic/faqsupporteddevice.jpg' %}" alt="netflex on TV, laptop, tablet and phone">
+            </div>
+
+            <div class="article-body">
+                <p>You can watch netflex through any <a href="#" class="article-link">supported internet-connected device</a> that offers the netflex app, including smart TVs, game consoles, streaming media players, cable boxes, smartphones, and tablets. You can also watch netflex on your computer using an internet browser. To get the best performance, you can review the <a href="#" class="article-link">system requirements</a> for web browser compatibility and check our <a href="#" class="article-link">internet speed recommendations</a>.</p>
+
+                <div class="article-note">
+                    <p><strong>NOTE:</strong> A small percentage of devices may not be supported by <a href="#" class="article-link">all plans</a>.</p>
+                </div>
+
+                <p>Need help getting set up? Search our <a href="#" class="article-link">Help Center</a> for the manufacturer of the device you're using.</p>
+
+                <div class="article-note">
+                    <p><strong>NOTE:</strong> The netflex app may come pre-loaded on certain devices, or you may need to download the netflex app onto your device. netflex app functionality may differ between devices.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr class="article-divider">
+
+        <div class="article-section">
+            <h2 class="article-section-title">Plans and Pricing</h2>
+
+            <div class="article-section-hero">
+                <img src="{% static 'pic/faqplan' %}" alt="netflex plan quality comparison: SD, HD, UHD">
+            </div>
+
+            <div class="article-body">
+                <p>Each <a href="#" class="article-link">netflex plan</a> determines the number of devices you can watch netflex on <strong>at the same time</strong> and whether you can watch in High Definition (HD), Full High Definition (FHD), or Ultra High Definition (UHD).</p>
+                <p>You can <a href="#" class="article-link">change your plan</a> or <a href="#" class="article-link">cancel</a> online at any time.</p>
+            </div>
+        </div>
+
+        <hr class="article-divider">
+
+        <div class="article-section">
+            <h2 class="article-section-title">Get Started</h2>
+
+            <div class="article-section-hero">
+                <img src="{% static 'pic/faqstart.jpg' %}" alt="netflex TV shows and movies cover art">
+            </div>
+
+            <div class="article-body">
+                <p>To start watching netflex:</p>
+                <ol class="article-steps">
+                    <li><a href="#" class="article-link">Visit netflex.com/signup.</a></li>
+                    <li><a href="#" class="article-link">Choose a plan.</a></li>
+                    <li><a href="#" class="article-link">Create an account by entering your email address and creating a password.</a></li>
+                    <li><a href="#" class="article-link">Enter a payment method.</a></li>
+                </ol>
+                <p>As a netflex member, you are charged once a month on the date you signed up.</p>
+            </div>
+        </div>
+
+        <hr class="article-divider">
+
+        <div class="article-helpful">
+            <span>Was this article helpful?</span>
+            <a href="#" class="article-link">Yes</a>
+            <a href="#" class="article-link">No</a>
+        </div>
+
+        <hr class="article-divider">
+    </div>
+
+    <div class="helpcenter-needmorehelp">
+        <h2 class="helpcenter-needmorehelp-title">Need more help?</h2>
+        <button class="helpcenter-contactus"><a href="#">Contact Us</a></button>
+    </div>
+    <hr class="helpcenterdivider" style="margin-top: 30px;">
+
+    <footer class="helpcenter-footer">
+        <div class="helpcenter-footer-lang">
+            <button class="helpcenter-footer-langbtn" id="helpcenterLangBtn">
+                <span id="helpcenterLangLabel">English</span>
+                <i data-lucide="chevron-down" class="helpcenter-footer-langchevron"></i>
+            </button>
+            <ul class="helpcenter-footer-langdropdown" id="helpcenterLangDropdown">
+                <li data-lang="en" class="active">English</li>
+                <li data-lang="km">ភាសាខ្មែរ</li>
+            </ul>
+        </div>
+
+        <ul class="helpcenter-footer-links">
+            <li><a href="#">Terms of Use</a></li>
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Cookie Preferences</a></li>
+            <li><a href="#">Corporate Information</a></li>
+        </ul>
+    </footer>
+</body>
+</html>

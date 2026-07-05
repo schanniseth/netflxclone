@@ -1,0 +1,356 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflex | Help Center</title>
+    <link rel="icon" href="{% static 'pic/netflix.webp' %}">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #111111;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 4%;
+            border-bottom: 1px solid #e6e6e6;
+            background: #ffffff;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 50px; /* Keeps the logo cleanly scaled and aligned */
+            width: auto;
+            display: block;
+        }
+
+        .help-label {
+            color: #333;
+            font-size: 16px;
+            font-weight: 500;
+            border-left: 1px solid #ccc;
+            padding-left: 15px;
+        }
+
+        .btn-join {
+            background-color: #E50914;
+            color: white;
+            border: none;
+            padding: 7px 17px;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Hero / Search Section */
+        .hero {
+            background-color: #f3f3f3;
+            padding: 40px 4%;
+            text-align: center;
+        }
+
+        .hero-container {
+            max-width: 720px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .back-link {
+            color: #0071eb;
+            text-decoration: none;
+            font-size: 14px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .search-wrapper {
+            position: relative;
+            background: #ffffff;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+        }
+
+        .search-icon {
+            color: #737373;
+            margin-right: 15px;
+            font-size: 18px;
+        }
+
+        .search-wrapper input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 16px;
+            color: #333;
+        }
+
+        /* Main Content Container */
+        .main-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 4%;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 60px;
+        }
+
+        /* Article Styles */
+        .article-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #111111;
+        }
+
+        .article-body p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #333333;
+        }
+
+        .steps-box {
+            background: #f9f9f9;
+            border: 1px solid #e3e3e3;
+            border-radius: 4px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .steps-box h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .steps-box ol {
+            padding-left: 20px;
+        }
+
+        .steps-box li {
+            margin-bottom: 12px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        /* Sidebar / Related Articles */
+        .sidebar h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #111111;
+        }
+
+        .related-links {
+            list-style: none;
+        }
+
+        .related-links li {
+            margin-bottom: 15px;
+        }
+
+        .related-links a {
+            color: #0071eb;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .related-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid #e6e6e6;
+            padding: 40px 4%;
+            background: #ffffff;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .footer-links a {
+            color: #737373;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-text {
+            color: #737373;
+            font-size: 13px;
+        }
+
+        /* Responsive Breakdowns */
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-wrap: wrap;
+                gap: 12px;
+                padding: 16px 4%;
+            }
+            .header-left {
+                gap: 10px;
+            }
+            .logo-img {
+                height: 36px;
+            }
+            .help-label {
+                font-size: 14px;
+                padding-left: 10px;
+            }
+            .hero {
+                padding: 30px 4%;
+            }
+            .search-wrapper {
+                padding: 10px 14px;
+            }
+            .search-wrapper input {
+                font-size: 15px;
+            }
+            .main-container {
+                padding: 30px 4%;
+            }
+            .article-title {
+                font-size: 24px;
+            }
+            .steps-box {
+                padding: 18px;
+            }
+            footer {
+                padding: 30px 4%;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .help-label {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="header-left">
+            <a href="{% url 'landing' %}" class="logo-link">
+                <img src="{% static 'pic/netflixname.png' %}" alt="Netflex" class="logo-img">
+            </a>
+            <span class="help-label">Help Center</span>
+        </div>
+        <div>
+            <a href="{% url 'signin' %}" class="btn-join">Join netflex</a>
+        </div>
+    </header>
+
+    <!-- Hero / Search Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <a href="#" class="back-link">← Back to Help Home</a>
+            <div class="search-wrapper">
+                <span class="search-icon">🔍</span>
+                <input type="text" placeholder="What do you need help with?">
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Grid -->
+    <main class="main-container">
+        <!-- Left Side: Article Content -->
+        <section class="content-area">
+            <h1 class="article-title">How to change your netflex plan</h1>
+            <div class="article-body">
+                <p>You can change your netflex plan at any time. To change your plan, follow the step-by-step instructions below based on your device type.</p>
+                
+                <div class="steps-box">
+                    <h3>Changing your plan online</h3>
+                    <ol>
+                        <li>Sign in to your <strong>Account</strong> page on a web browser.</li>
+                        <li>Under <strong>Plan Details</strong>, select <strong>Change Plan</strong>.</li>
+                        <li>Choose the desired plan, then select <strong>Continue</strong> or <strong>Update</strong>.</li>
+                        <li>Select <strong>Confirm Change</strong> or <strong>Confirm</strong>.</li>
+                    </ol>
+                </div>
+
+                <p>As a reminder, plan upgrades take effect immediately so you can enjoy the added features right away. Plan downgrades take effect on your next billing date.</p>
+            </div>
+        </section>
+
+        <!-- Right Side: Sidebar Layout -->
+        <aside class="sidebar">
+            <h3>Related Articles</h3>
+            <ul class="related-links">
+                <li><a href="#">Plans and Pricing</a></li>
+                <li><a href="#">How to update your netflex account information</a></li>
+                <li><a href="#">Billing and Payments</a></li>
+                <li><a href="#">Can't sign in to netflex</a></li>
+            </ul>
+        </aside>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="#">Terms of Use</a>
+                <a href="#">Privacy</a>
+                <a href="#">Corporate Information</a>
+                <a href="#">Contact Us</a>
+            </div>
+            <p class="footer-text">© netflex Help Center</p>
+        </div>
+    </footer>
+
+</body>
+</html>

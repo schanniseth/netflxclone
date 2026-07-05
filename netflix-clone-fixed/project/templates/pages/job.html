@@ -1,0 +1,298 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflex Jobs - Corporate Careers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #000000;
+        }
+        /* netflex cinematic ambient background glow */
+        .netflix-hero-glow {
+            background: radial-gradient(circle at 50% -20%, rgba(229, 9, 20, 0.18) 0%, rgba(0, 0, 0, 0) 70%);
+        }
+        /* Custom scrollbar to match premium UI */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #141414; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #444; }
+    </style>
+</head>
+<body class="text-[#f5f5f5] antialiased min-h-screen flex flex-col justify-between selection:bg-[#E50914] selection:text-white">
+
+    <!-- Top Announcement Banner -->
+    <div class="bg-[#141414] border-b border-zinc-800/80 text-center py-3 px-4 text-xs md:text-sm font-medium text-zinc-300 z-50 relative">
+        <span>We've updated our legendary Culture Memo.</span>
+        <a href="#" class="text-[#E50914] hover:underline ml-2 inline-flex items-center gap-0.5 font-semibold">
+            Read Freedom & Responsibility 2026 &rarr;
+        </a>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 bg-black/75 backdrop-blur-md border-b border-zinc-900/80 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-12">
+                <a href="{% url 'landing' %}" class="flex items-center tracking-tighter group">
+                    <span class="text-[#E50914] font-black text-2xl md:text-3xl uppercase tracking-tighter transition-transform duration-200 group-hover:scale-[1.02]">netflex</span>
+                    <span class="text-zinc-400 text-xs font-semibold ml-2 uppercase tracking-[0.2em] border-l border-zinc-700 pl-2 self-center pt-0.5">Jobs</span>
+                </a>
+                <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-zinc-400">
+                    <a href="#" class="hover:text-white transition duration-200">Teams</a>
+                    <a href="#" class="hover:text-white transition duration-200">Locations</a>
+                    <a href="#" class="hover:text-white transition duration-200">Work Life</a>
+                </nav>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="#search-section" class="border border-zinc-700 hover:border-zinc-500 text-white text-xs md:text-sm font-medium px-4 py-2 rounded-sm transition duration-200">
+                    Search Jobs
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main View Section Container -->
+    <main class="relative z-10 flex-grow">
+        
+        <!-- Hero Title Banner Section -->
+        <section class="relative pt-24 pb-20 px-4 sm:px-6 lg:px-8 netflix-hero-glow">
+            <div class="max-w-4xl mx-auto text-center space-y-6">
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1] max-w-3xl mx-auto">
+                    A great workplace combines exceptional colleagues and hard problems.
+                </h1>
+                <p class="text-zinc-400 text-base sm:text-xl max-w-2xl mx-auto font-normal tracking-wide pt-2">
+                    Our culture is key to our success. We treat people as independent decision-makers who are collectively responsible for netflex's future.
+                </p>
+            </div>
+        </section>
+
+        <!-- Dynamic Filter Console Section -->
+        <section id="search-section" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-20 relative z-20">
+            <div class="bg-[#181818] border border-zinc-800 p-2 rounded-lg shadow-[0_24px_50px_-12px_rgba(0,0,0,0.7)] flex flex-col md:flex-row gap-2">
+                <div class="flex items-center flex-1 px-4 py-3 gap-3 border-b md:border-b-0 md:border-r border-zinc-800">
+                    <svg class="text-zinc-500 w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <input id="jobSearch" type="text" placeholder="Search by keyword, title, or technology..." 
+                           class="w-full bg-transparent text-white placeholder-zinc-500 focus:outline-none text-sm font-medium" oninput="runFilter()" />
+                </div>
+                <div class="flex items-center px-4 py-3 gap-3 md:w-64">
+                    <svg class="text-zinc-500 w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    <select id="jobLocation" class="w-full bg-transparent text-white focus:outline-none text-sm font-medium appearance-none cursor-pointer" onchange="runFilter()">
+                        <option value="all" class="bg-[#181818]">All Locations</option>
+                        <option value="Los Gatos, California" class="bg-[#181818]">Los Gatos, CA (HQ)</option>
+                        <option value="Los Angeles, California" class="bg-[#181818]">Los Angeles, CA</option>
+                        <option value="Amsterdam, Netherlands" class="bg-[#181818]">Amsterdam</option>
+                        <option value="Seoul, South Korea" class="bg-[#181818]">Seoul</option>
+                        <option value="Tokyo, Japan" class="bg-[#181818]">Tokyo</option>
+                    </select>
+                </div>
+                <button class="bg-[#E50914] hover:bg-[#b80710] text-white font-semibold px-8 py-3 rounded-md text-sm transition-colors duration-150 tracking-wide active:scale-[0.98]">
+                    Find Roles
+                </button>
+            </div>
+        </section>
+
+        <!-- Opportunities Open Tracking Display -->
+        <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 mb-24">
+            <div class="flex items-center justify-between mb-8 border-b border-zinc-900 pb-4">
+                <div>
+                    <h2 class="text-2xl font-bold tracking-tight text-white">Current Opportunities</h2>
+                    <p class="text-zinc-500 text-xs mt-1" id="counterDisplay">Showing all vacancies</p>
+                </div>
+            </div>
+            <div id="jobBoard" class="divide-y divide-zinc-900 border-t border-b border-zinc-900"></div>
+        </section>
+
+        <!-- Divisional Team Pillars Layout Section -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 mb-20">
+            <div class="text-left mb-12">
+                <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-white">Find your team</h2>
+                <p class="text-zinc-400 text-sm mt-2">From engineering to production, we look for curious, creative teammates.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-[#141414] border border-zinc-900 p-8 rounded-sm hover:bg-[#1c1c1c] transition-colors duration-200 cursor-pointer group">
+                    <h3 class="text-lg font-bold text-white mb-2 group-hover:text-[#E50914] transition-colors">Core Engineering</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed font-light">Evolving the applications, platforms, systems architecture, and localized delivery configurations worldwide.</p>
+                </div>
+                <div class="bg-[#141414] border border-zinc-900 p-8 rounded-sm hover:bg-[#1c1c1c] transition-colors duration-200 cursor-pointer group">
+                    <h3 class="text-lg font-bold text-white mb-2 group-hover:text-[#E50914] transition-colors">Data Science & Machine Learning</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed font-light">Powering algorithms behind global content recommendations, streaming economics, and production optimization.</p>
+                </div>
+                <div class="bg-[#141414] border border-zinc-900 p-8 rounded-sm hover:bg-[#1c1c1c] transition-colors duration-200 cursor-pointer group">
+                    <h3 class="text-lg font-bold text-white mb-2 group-hover:text-[#E50914] transition-colors">Studio & Content Operations</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed font-light">Building tools and workflows designed to empower the world's finest narrative directors and creative crews.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ADDED SECTION: "Only on netflex" Showcase Card View -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-28">
+            <div class="relative overflow-hidden bg-black border border-zinc-800/80 rounded-2xl min-h-[460px] flex items-center p-8 md:p-16 shadow-2xl">
+                
+                <!-- Tilted Isometric Movie Grid Background Wall Replica -->
+                <div class="absolute inset-0 opacity-25 md:opacity-55 pointer-events-none overflow-hidden flex justify-end z-0">
+                    <div class="w-[130%] md:w-[70%] h-[150%] -top-[25%] -right-[12%] absolute grid grid-cols-4 gap-3 transform rotate-[-13deg] skew-x-[-4deg] scale-105 select-none">
+                        <!-- Poster Column 1 -->
+                        <div class="space-y-3 transform -translate-y-16">
+                            <div class="h-44 bg-gradient-to-br from-amber-600 to-amber-950 rounded-md flex items-end p-2.5 text-[10px] font-extrabold uppercase tracking-wider text-white/90 shadow-xl border border-white/5">Despicable Me 4</div>
+                            <div class="h-44 bg-gradient-to-br from-zinc-800 to-zinc-950 rounded-md flex items-end p-2.5 text-[10px] font-extrabold uppercase tracking-wider text-white/90 shadow-xl border border-white/5">I Will Find You</div>
+                            <div class="h-44 bg-gradient-to-br from-red-950 to-neutral-900 rounded-md flex items-end p-2.5 text-[10px] font-extrabold uppercase tracking-wider text-white/90 shadow-xl border border-white/5">First They Killed My Father</div>
+                        </div>
+                        <!-- Poster Column 2 -->
+                        <div class="space-y-3 transform translate-y-6">
+                            <div class="h-44 bg-gradient-to-br from-neutral-800 to-slate-950 rounded-md flex items-end p-2.5 text-[10px] font-extrabold uppercase tracking-wider text-white/90 shadow-xl border border-white/5">Teach You A Lesson</div>
+                            <div class="h-44 bg-gradient-to-br from-orange-800 to-red-950 rounded-md flex items-end p-2.5 text-[10px] font-extrabold uppercase tracking-wider text-white/90 shadow-xl border border-white/5">The Last Airbender</div>
+                            <div class="h-44 bg-gradient-to-br from-purple-950 to-stone-950 rounded-md flex items-end p-2.5 text-[10px] font-extrabold uppercase tracking-wider text-white/90 shadow-xl border border-white/5">Sex / Life</div>
+                        </div>
+                        <!-- Poster Column 3 -->
+                        <div class="space-y-3 transform -translate-y-8">
+                            <div class="h-44 bg-gradient-to-br from-red-700 to-orange-950 rounded-md flex items-end p-2.5 text-[10px] font-extrabold uppercase tracking-wider text-white/90 shadow-xl border border-white/5">One Piece</div>
+                            <div class="h-44 bg-gradient-to-br from-emerald-950 to-teal-950 rounded-md flex items-end p-2.5 text-[10px] font-extrabold uppercase tracking-wider text-white/90 shadow-xl border border-white/5">If Wishes Could Kill</div>
+                            <div class="h-44 bg-gradient-to-br from-rose-950 to-neutral-900 rounded-md flex items-end p-2.5 text-[10px] font-extrabold uppercase tracking-wider text-white/90 shadow-xl border border-white/5">Mach</div>
+                        </div>
+                        <!-- Poster Column 4 -->
+                        <div class="space-y-3 transform translate-y-12">
+                            <div class="h-44 bg-gradient-to-br from-cyan-900 to-blue-950 rounded-md flex items-end p-2.5 text-[10px] font-extrabold uppercase tracking-wider text-white/90 shadow-xl border border-white/5">Kung Fu Panda</div>
+                            <div class="h-44 bg-gradient-to-br from-yellow-800 to-stone-950 rounded-md flex items-end p-2.5 text-[10px] font-extrabold uppercase tracking-wider text-white/90 shadow-xl border border-white/5">My Royal Nemesis</div>
+                            <div class="h-44 bg-gradient-to-br from-stone-800 to-neutral-950 rounded-md flex items-end p-2.5 text-[10px] font-extrabold uppercase tracking-wider text-white/90 shadow-xl border border-white/5">The Good Doctor</div>
+                        </div>
+                    </div>
+                    <!-- Ambient Vignette Overlays matching image masking layers -->
+                    <div class="absolute inset-0 bg-gradient-to-r from-black via-black/85 to-transparent"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40"></div>
+                </div>
+
+                <!-- Text Presentation Content Overlays -->
+                <div class="relative z-10 max-w-xl space-y-5">
+                    <h2 class="text-3xl md:text-5xl font-black text-white tracking-tight">Only on netflex</h2>
+                    <p class="text-zinc-300 text-sm md:text-base leading-relaxed font-normal max-w-md">
+                        netflex is the home of amazing original programming that you can't find anywhere else. Movies, TV shows, specials and more, all tailored specifically to you.
+                    </p>
+                    
+                    <!-- Action Subscription Submission form wrapper -->
+                    <div class="space-y-3 pt-2">
+                        <form class="flex flex-col sm:flex-row gap-2 max-w-md" onsubmit="event.preventDefault();">
+                            <input type="email" placeholder="Email address" 
+                                   class="flex-grow bg-black/50 backdrop-blur-md border border-zinc-700/80 rounded px-4 py-3.5 text-white placeholder-zinc-500 text-sm focus:outline-none focus:border-white transition" required />
+                            <button type="submit" class="bg-[#E50914] hover:bg-[#b80710] text-white font-bold px-8 py-3.5 rounded text-sm transition tracking-wide whitespace-nowrap active:scale-[0.98]">
+                                Join Now
+                            </button>
+                        </form>
+                        <p class="text-zinc-400 text-xs font-medium tracking-wide pl-0.5">Endless entertainment starting at USD 2.99</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Detailed Footer Section -->
+    <footer class="border-t border-zinc-900 bg-black text-zinc-500 py-12 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8 text-xs">
+                <div class="space-y-3">
+                    <a href="#" class="block hover:underline">Netflix.com</a>
+                    <a href="#" class="block hover:underline">Culture Memo</a>
+                </div>
+                <div class="space-y-3">
+                    <a href="#" class="block hover:underline">Inclusion & Diversity</a>
+                    <a href="#" class="block hover:underline">Blog</a>
+                </div>
+                <div class="space-y-3">
+                    <a href="#" class="block hover:underline">Privacy Policy</a>
+                    <a href="#" class="block hover:underline">Terms of Use</a>
+                </div>
+                <div class="space-y-3">
+                    <p class="text-zinc-600">Headquarters</p>
+                    <p class="text-zinc-400">Los Gatos, CA 95032</p>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-zinc-900 text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-zinc-600">
+                <p>&copy; 2026 netflex, Inc. This application is an exact design mockup replica.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-zinc-400">LinkedIn</a>
+                    <a href="#" class="hover:text-zinc-400">Twitter / X</a>
+                    <a href="#" class="hover:text-zinc-400">YouTube</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Search Logic Integration -->
+    <script>
+        const database = [
+            { id: 1, title: "Senior Software Engineer, Streaming Video Pipeline", team: "Core Engineering", location: "Los Gatos, California", metadata: "C++ • AV1 • Video Encoding" },
+            { id: 2, title: "Senior Data Scientist - Personalization Ecosystem", team: "Data Science & Machine Learning", location: "Los Gatos, California", metadata: "Python • PyTorch • Recommendation Algorithms" },
+            { id: 3, title: "Staff Infrastructure Architect, Edge Network Computing", team: "Core Engineering", location: "Los Angeles, California", metadata: "AWS • Go • Kubernetes Infrastructure" },
+            { id: 4, title: "Senior Frontend Engineer, Content Studio Workflows", team: "Studio & Content Operations", location: "Amsterdam, Netherlands", metadata: "React • TypeScript • TailwindCSS" },
+            { id: 5, title: "Information Security Engineer, Detection & Automation", team: "Core Engineering", location: "Seoul, South Korea", metadata: "SecOps • Cloud Detection • Python" },
+            { id: 6, title: "Product Manager, Globalization and Localization Tools", team: "Studio & Content Operations", location: "Tokyo, Japan", metadata: "Product Management • International Markets" }
+        ];
+
+        function renderListing(dataPool) {
+            const container = document.getElementById('jobBoard');
+            const counter = document.getElementById('counterDisplay');
+            
+            container.innerHTML = '';
+            counter.innerText = `Showing ${dataPool.length} open tracking position${dataPool.length === 1 ? '' : 's'}`;
+
+            if (dataPool.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-16 text-zinc-500">
+                        <p class="text-sm">No career openings match your precise search vectors right now.</p>
+                        <button onclick="resetSearch()" class="mt-4 text-xs font-semibold text-[#E50914] hover:underline">Clear all structural filters</button>
+                    </div>`;
+                return;
+            }
+
+            dataPool.forEach(job => {
+                container.innerHTML += `
+                    <div class="group py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-all duration-200 hover:px-2 cursor-pointer">
+                        <div class="space-y-1.5 max-w-2xl">
+                            <span class="text-[10px] font-bold text-[#E50914] uppercase tracking-widest block">${job.team}</span>
+                            <h3 class="text-base md:text-lg font-bold text-white group-hover:text-[#E50914] transition-colors duration-150">${job.title}</h3>
+                            <p class="text-xs text-zinc-500 font-medium tracking-wide">${job.metadata}</p>
+                        </div>
+                        <div class="flex items-center justify-between sm:justify-end gap-8 text-xs font-medium text-zinc-400">
+                            <span class="inline-flex items-center gap-1.5">
+                                <svg class="w-3.5 h-3.5 text-zinc-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
+                                ${job.location}
+                            </span>
+                            <div class="w-8 h-8 rounded-full border border-zinc-800 flex items-center justify-center text-white group-hover:bg-[#E50914] group-hover:border-[#E50914] transition-all duration-200">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        function runFilter() {
+            const searchVal = document.getElementById('jobSearch').value.toLowerCase();
+            const locationVal = document.getElementById('jobLocation').value;
+
+            const matches = database.filter(job => {
+                const searchMatch = job.title.toLowerCase().includes(searchVal) || 
+                                    job.team.toLowerCase().includes(searchVal) || 
+                                    job.metadata.toLowerCase().includes(searchVal);
+                const locationMatch = locationVal === 'all' || job.location === locationVal;
+                return searchMatch && locationMatch;
+            });
+
+            renderListing(matches);
+        }
+
+        function resetSearch() {
+            document.getElementById('jobSearch').value = '';
+            document.getElementById('jobLocation').value = 'all';
+            renderListing(database);
+        }
+
+        window.onload = () => { renderListing(database); };
+    </script>
+</body>
+</html>

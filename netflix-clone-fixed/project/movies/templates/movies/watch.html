@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Watching {{ movie.title }}{% endblock %}
+
+{% block content %}
+<div class="watch-page">
+    <a href="{% url 'movie_detail' movie.id %}" class="watch-back" aria-label="Back">&larr; Back</a>
+    <h1 class="watch-title">{{ movie.title }}</h1>
+
+    <div class="watch-player" id="watch-player" data-movie-id="{{ movie.id }}"
+         data-start="{{ progress.progress_seconds|default:0 }}"
+         data-progress-url="{% url 'update_progress' movie.id %}">
+        {% if movie.stream_url %}
+        <video id="watch-video" controls autoplay style="width:100%; max-height:80vh; background:#000;">
+            <source src="{{ movie.stream_url }}">
+            Your browser does not support the video tag.
+        </video>
+        {% elif movie.youtube_key %}
+        <div class="watch-youtube-wrap">
+            <iframe id="watch-youtube"
+                src="https://www.youtube.com/embed/{{ movie.youtube_key }}?autoplay=1&enablejsapi=1"
+                title="{{ movie.title }}" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen style="width:100%; aspect-ratio:16/9;"></iframe>
+        </div>
+        {% else %}
+        <p class="empty-state">No video source is available for this title yet.</p>
+        {% endif %}
+    </div>
+
+    <p class="watch-overview">{{ movie.overview }}</p>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+    var wrap = document.getElementById('watch-player');
+    if (!wrap) return;
+    var progressUrl = wrap.dataset.progressUrl;
+    var video = document.getElementById('watch-video');
+    if (!video) return; // Progress tracking only works for the native <video> player; YouTube iframe API is out of scope here.
+
+    var startAt = parseFloat(wrap.dataset.start || '0');
+    video.addEventListener('loadedmetadata', function () {
+        if (startAt > 0 && startAt < video.duration) {
+            video.currentTime = startAt;
+        }
+    });
+
+    function csrfToken() {
+        var match = document.cookie.match(/csrftoken=([^;]+)/);
+        return match ? match[1] : '';
+    }
+
+    function sendProgress() {
+        if (!video.duration) return;
+        var body = new URLSearchParams({
+            progress_seconds: Math.floor(video.currentTime),
+            duration_seconds: Math.floor(video.duration),
+        });
+        fetch(progressUrl, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrfToken(),
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: body,
+        });
+    }
+
+    setInterval(sendProgress, 10000);
+    video.addEventListener('pause', sendProgress);
+    window.addEventListener('beforeunload', sendProgress);
+})();
+</script>
+{% endblock %}

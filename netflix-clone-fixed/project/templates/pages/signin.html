@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflex - Sign In</title>
+    <link rel="icon" href="{% static 'pic/netflix.webp' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Inter:wght@700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/site.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive-fixes.css' %}">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="{% static 'js/site.js' %}" defer></script>
+</head>
+<body class="signin">
+    <a href="{% url 'landing' %}"><img src="{% static 'pic/netflixname.png' %}" class="logoinsignin"></a>
+    <hr class="dividersignin">
+    <div class="freewatching">
+        <div class="devices-icons">
+            <i data-lucide="laptop"></i>
+            <i data-lucide="monitor"></i>
+            <i data-lucide="tablet"></i>
+            <i data-lucide="smartphone"></i>
+        </div>
+        <div class="startwatching">
+            <h3 class="welcometonetflix"><b>Welcome back to Netflex!</b></h3>
+            <p>Sign in to continue watching.</p>
+            <p class="wontcharge">We love to see you back!</p>
+        </div>
+        <div class="signin-card">
+            <h2 class="signin-card__title">Enter your info to sign in</h2>
+
+            {% if error %}
+            <p class="signin-error">{{ error }}</p>
+            {% endif %}
+
+            <form id="signinform" class="signinform" method="post" action="{% url 'signin' %}">
+                {% csrf_token %}
+                {{ form.email }}
+                {{ form.password }}
+                <button type="submit" class="signin-submit">Log in</button>
+            </form>
+
+            <p class="signin-card__subtitle" style="margin-top: 10px;">
+                <a href="{% url 'password_reset' %}">Forgot password?</a>
+            </p>
+
+            <p class="signin-card__subtitle">New to Netflex? <a href="{% url 'signup' %}">Sign up now.</a></p>
+
+            <div class="gethelp">
+                <button type="button" class="gethelp__toggle" id="gethelpToggle">
+                    Get Help
+                    <i data-lucide="chevron-down" class="gethelp__chevron"></i>
+                </button>
+                <div class="gethelp__links" id="gethelpLinks">
+                    <a href="{% url 'password_reset' %}">Forgot password?</a>
+                    <a href="{% url 'helpcenter' %}">Forgot email or mobile number?</a>
+                    <a href="{% url 'helpcenter' %}">Learn more about sign-in</a>
+                </div>
+            </div>
+
+            <p class="recaptcha-note">This page is protected by Google reCAPTCHA to ensure you're not a bot.</p>
+        </div>
+    </div>
+    <footer>
+        <div class="signinfooter">
+            <p>Question?<a href="{% url 'helpcenter' %}" class="questsign">Contact us.</a></p>
+            <div class="signincols">
+                <div class="colu1">
+                    <a href="{% url 'faq' %}">FAQ</a>
+                    <a href="#">Cookie Preferences</a>
+                </div>
+                <div class="colu2">
+                    <a href="{% url 'helpcenter' %}">Help Center</a>
+                    <a href="{% url 'corporateinfo' %}">Corporate Information</a>
+                </div>
+                <div class="colu3">
+                    <a href="{% url 'termofuse' %}">Terms of Use</a>
+                </div>
+                <div class="colu4">
+                    <a href="{% url 'privacy' %}">Privacy</a>
+                </div>
+         </div>
+    </footer>
+
+</body>
+</html>

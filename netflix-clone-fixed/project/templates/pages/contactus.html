@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflex | Contact Us</title>
+    <link rel="stylesheet" href="{% static 'css/site.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive-fixes.css' %}">
+    <link rel="icon" href="{% static 'pic/netflix.webp' %}">
+</head>
+<body class="contactuspage">
+
+    <header class="navbar">
+        <div class="logo"><a class="contactuslink" href="{% url 'helpcenter' %}">HELP CENTER</a></div>
+        <button class="btn-secondary"><a class="contactussignin" href="{% url 'signin' %}">Sign In</a></button>
+    </header>
+
+    <main class="container">
+        <h1>Contact Customer Service</h1>
+        <p class="subtitle">How would you like to contact us today?</p>
+
+        <div class="contact-options">
+            <div class="card">
+                <h3>Call Us</h3>
+                <p>Get a quick response by calling our support line directly.</p>
+                <button class="btn-primary">Call Now</button>
+            </div>
+
+            <div class="card">
+                <h3>Live Chat</h3>
+                <p>Chat online with one of our customer service representatives.</p>
+                <button class="btn-primary">Start Live Chat</button>
+            </div>
+        </div>
+
+        <section class="quick-links">
+            <h2>Popular Topics</h2>
+            <ul>
+                <li><a href="#">How to reset your password</a></li>
+                <li><a href="#">Update your payment method</a></li>
+                <li><a href="#">Manage your subscription</a></li>
+            </ul>
+        </section>
+    </main>
+
+</body>
+</html>

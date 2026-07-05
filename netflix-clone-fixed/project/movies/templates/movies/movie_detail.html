@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}{{ movie.title }} - Netflex{% endblock %}
+
+{% block content %}
+<section class="detail-hero" style="background-image: url('{{ movie.backdrop_url|default:movie.poster_url }}');">
+    <div class="detail-hero-fade"></div>
+    <div class="detail-hero-content">
+        <h1 class="detail-title">{{ movie.title }}</h1>
+        <div class="detail-meta">
+            {% if movie.release_year %}<span>{{ movie.release_year }}</span>{% endif %}
+            {% if movie.rating %}<span class="detail-rating">★ {{ movie.rating }}</span>{% endif %}
+        </div>
+        <div class="detail-buttons">
+            <a href="{% url 'watch' movie.id %}" class="btn btn-play">▶ Play{% if progress and not progress.finished %} · Resume{% endif %}</a>
+            <button class="btn btn-info js-mylist-toggle {% if in_list %}in-list{% endif %}" data-movie-id="{{ movie.id }}">
+                <span class="add-label">{% if in_list %}✓ In My List{% else %}+ My List{% endif %}</span>
+            </button>
+        </div>
+        <p class="detail-overview">{{ movie.overview }}</p>
+        {% if movie.categories.all %}
+        <p class="detail-categories">
+            <strong>Genres:</strong>
+            {% for c in movie.categories.all %}{{ c.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
+        </p>
+        {% endif %}
+    </div>
+</section>
+
+{% if similar %}
+<section class="row">
+    <h2 class="row-title">More Like This</h2>
+    <div class="row-container">
+        <div class="row-posters">
+            {% for m in similar %}
+            {% include "movies/_movie_card.html" with movie=m %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var btn = document.querySelector('.detail-buttons .js-mylist-toggle');
+    if (btn) {
+        btn.addEventListener('click', function () {
+            toggleMyList(btn.dataset.movieId, function (inList) {
+                btn.classList.toggle('in-list', inList);
+                btn.querySelector('.add-label').textContent = inList ? '✓ In My List' : '+ My List';
+            });
+        });
+    }
+});
+</script>
+{% endblock %}

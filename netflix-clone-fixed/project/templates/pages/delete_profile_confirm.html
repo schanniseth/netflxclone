@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Profile - Netflex</title>
+    <link rel="icon" href="{% static 'pic/netflix.webp' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="profiles-body">
+    <main class="profiles-screen">
+        <h1>Delete "{{ profile.name }}"?</h1>
+        <p>This will remove this profile along with its My List and viewing history.</p>
+        <form method="post" class="edit-profile-actions">
+            {% csrf_token %}
+            <button type="submit" class="btn-manage-profiles btn-danger">Yes, Delete</button>
+            <a href="{% url 'manage_profiles' %}" class="btn-manage-profiles btn-secondary">Cancel</a>
+        </form>
+    </main>
+</body>
+</html>

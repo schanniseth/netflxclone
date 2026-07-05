@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if is_new %}Add Profile{% else %}Edit Profile{% endif %} - Netflex</title>
+    <link rel="icon" href="{% static 'pic/netflix.webp' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="profiles-body">
+    <a href="{% url 'landing' %}" class="profiles-logo">
+        <img src="{% static 'img/netflixname.png' %}" alt="Netflix">
+    </a>
+    <main class="profiles-screen">
+        <h1>{% if is_new %}Add Profile{% else %}Edit Profile{% endif %}</h1>
+        <form method="post" class="edit-profile-form">
+            {% csrf_token %}
+            {{ form.name }}
+            {% if form.name.errors %}<p class="form-error">{{ form.name.errors }}</p>{% endif %}
+
+            <div class="avatar-choices">
+                {% for radio in form.avatar_color %}
+                <label class="avatar-choice">{{ radio.tag }} <span class="avatar-swatch avatar-{{ radio.data.value }}"></span></label>
+                {% endfor %}
+            </div>
+            {% if form.avatar_color.errors %}<p class="form-error">{{ form.avatar_color.errors }}</p>{% endif %}
+
+            <label class="kids-checkbox">{{ form.is_kids }} Kids profile</label>
+
+            {% if form.non_field_errors %}<p class="form-error">{{ form.non_field_errors }}</p>{% endif %}
+
+            <div class="edit-profile-actions">
+                <button type="submit" class="btn-manage-profiles">Save</button>
+                <a href="{% url 'manage_profiles' %}" class="btn-manage-profiles btn-secondary">Cancel</a>
+                {% if not is_new %}
+                <a href="{% url 'delete_profile' profile.id %}" class="btn-manage-profiles btn-danger">Delete Profile</a>
+                {% endif %}
+            </div>
+        </form>
+    </main>
+</body>
+</html>

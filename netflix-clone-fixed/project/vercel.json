@@ -1,0 +1,8 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": {
+    "netflix_clone/wsgi.py": {
+      "maxDuration": 30
+    }
+  }
+}

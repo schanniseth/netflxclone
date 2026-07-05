@@ -1,0 +1,658 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Netflex Investor Relations - Financial releases, stock information, corporate governance, and leadership."/>
+  <title>Netflex Investor Relations</title>
+  <link rel="icon" href="{% static 'pic/netflix.webp' %}"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="{% static 'css/site.css' %}"/>
+  <link rel="stylesheet" href="{% static 'css/responsive-fixes.css' %}"/>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="ir-body">
+
+  <!-- ==================== CORPORATE HEADER ==================== -->
+  <header class="ir-header">
+    <div class="ir-header-inner">
+      <a href="{% url 'landing' %}" class="ir-logo-link">
+        <img src="{% static 'pic/netflixname.png' %}" style="height: 48px" alt="Netflex" class="ir-logo"/>
+        <span class="ir-logo-divider">|</span>
+        <span class="ir-logo-subtext">Investor Relations</span>
+      </a>
+      
+      <nav class="ir-nav" aria-label="Corporate navigation">
+        <ul class="ir-nav-list">
+          <li><button class="ir-nav-btn active" data-tab="overview">Overview</button></li>
+          <li><button class="ir-nav-btn" data-tab="financials">Financials</button></li>
+          <li><button class="ir-nav-btn" data-tab="stock">Stock Info</button></li>
+          <li><button class="ir-nav-btn" data-tab="governance">Governance</button></li>
+          <li><button class="ir-nav-btn" data-tab="faq">FAQ</button></li>
+        </ul>
+      </nav>
+
+      <div class="ir-header-actions">
+        <a href="#email-alerts" class="ir-alert-btn">
+          <i data-lucide="mail"></i> Email Alerts
+        </a>
+        <button id="mobileMenuToggle" class="ir-mobile-menu-btn" aria-label="Toggle Menu">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Nav -->
+    <div id="mobileIrNav" class="mobile-ir-nav">
+      <ul class="mobile-ir-nav-list">
+        <li><button class="mobile-ir-nav-btn active" data-tab="overview">Overview</button></li>
+        <li><button class="mobile-ir-nav-btn" data-tab="financials">Financials</button></li>
+        <li><button class="mobile-ir-nav-btn" data-tab="stock">Stock Info</button></li>
+        <li><button class="mobile-ir-nav-btn" data-tab="governance">Governance</button></li>
+        <li><button class="mobile-ir-nav-btn" data-tab="faq">FAQ</button></li>
+        <li><a href="#email-alerts" class="mobile-ir-alert-link"><i data-lucide="mail"></i> Email Alerts</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ==================== HERO STATS BANNER ==================== -->
+  <section class="ir-hero-banner">
+    <div class="ir-hero-glow"></div>
+    <div class="ir-hero-content">
+      <div class="ir-hero-left">
+        <span class="ir-hero-tag">NASDAQ: NFLX</span>
+        <h1 class="ir-hero-title">Investor Overview</h1>
+        <p class="ir-hero-lead">netflex is the world's leading streaming entertainment service with over 270 million paid memberships in over 190 countries.</p>
+      </div>
+      
+      <!-- Stock Quote Box -->
+      <div class="ir-stock-quote-box" id="stockQuoteBox">
+        <div class="stock-box-header">
+          <span class="stock-symbol">NFLX (Real-Time)</span>
+          <span class="stock-market-status">Market Open</span>
+        </div>
+        <div class="stock-box-price-row">
+          <span class="stock-price" id="liveStockPrice">$685.42</span>
+          <span class="stock-change price-up" id="liveStockChange">
+            <i data-lucide="arrow-up-right"></i> +12.18 (+1.81%)
+          </span>
+        </div>
+        <div class="stock-box-details">
+          <div class="stock-detail-item">
+            <span class="detail-lbl">Volume</span>
+            <span class="detail-val" id="liveStockVolume">2.4M</span>
+          </div>
+          <div class="stock-detail-item">
+            <span class="detail-lbl">52-Wk Range</span>
+            <span class="detail-val">$425.00 - $695.00</span>
+          </div>
+        </div>
+        <div class="stock-box-footer">
+          <span>Data delayed by 15 mins. As of <span id="stockTimestamp">Jul 2, 2026</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MAIN TABS CONTENT ==================== -->
+  <main class="ir-main-container">
+
+    <!-- TAB 1: OVERVIEW -->
+    <section id="tab-overview" class="ir-tab-content active">
+      <div class="ir-grid-layout">
+        <!-- Main Column -->
+        <div class="ir-main-col">
+          <div class="ir-card profile-card">
+            <h2 class="card-title">Company Profile</h2>
+            <p class="profile-text">At netflex, we want to entertain the world. Whatever your taste, and no matter where you live, we give you access to best-in-class TV series, documentaries, feature films and mobile games. Our members control what they want to watch, when they want it, with no ads, in one simple subscription.</p>
+            <p class="profile-text">We are streaming in more than 30 languages and 190 countries, because great stories can come from anywhere and be loved everywhere. We are the world's biggest fans of entertainment, and we're always looking to help you find your next favorite story.</p>
+            
+            <div class="profile-bullets">
+              <div class="bullet-item">
+                <i data-lucide="check-circle-2" class="bullet-icon"></i>
+                <div>
+                  <strong>Leading Business Model</strong>
+                  <p>Pure-play streaming business model with strong operating margin growth and free cash flow generation.</p>
+                </div>
+              </div>
+              <div class="bullet-item">
+                <i data-lucide="check-circle-2" class="bullet-icon"></i>
+                <div>
+                  <strong>Global Scale</strong>
+                  <p>Unmatched local production capability enabling member satisfaction in global markets.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Releases list -->
+          <div class="ir-card recent-releases-card">
+            <div class="card-header-row">
+              <h2 class="card-title">Recent Financial Releases</h2>
+              <a href="#" class="card-header-link" id="viewAllFinancials">View All</a>
+            </div>
+            <div class="release-list">
+              <div class="release-item">
+                <div class="release-date">
+                  <span class="release-month">APR</span>
+                  <span class="release-day">18</span>
+                  <span class="release-year">2026</span>
+                </div>
+                <div class="release-details">
+                  <span class="release-type">Earnings</span>
+                  <h3 class="release-title">Q1 2026 Letter to Shareholders &amp; Financial Results</h3>
+                  <div class="release-actions">
+                    <a href="https://about.netflix.com/en/newsroom" target="_blank" class="release-action-btn"><i data-lucide="file-text"></i> Letter (PDF)</a>
+                    <a href="https://about.netflix.com/en/newsroom" target="_blank" class="release-action-btn"><i data-lucide="table"></i> Financial Tables</a>
+                    <a href="https://about.netflix.com/en/newsroom" target="_blank" class="release-action-btn"><i data-lucide="headphones"></i> Audio Webcast</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="release-item">
+                <div class="release-date">
+                  <span class="release-month">JAN</span>
+                  <span class="release-day">23</span>
+                  <span class="release-year">2026</span>
+                </div>
+                <div class="release-details">
+                  <span class="release-type">Earnings</span>
+                  <h3 class="release-title">Q4 2025 Letter to Shareholders &amp; Financial Results</h3>
+                  <div class="release-actions">
+                    <a href="#" class="release-action-btn"><i data-lucide="file-text"></i> Letter (PDF)</a>
+                    <a href="#" class="release-action-btn"><i data-lucide="headphones"></i> Audio Webcast</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="release-item">
+                <div class="release-date">
+                  <span class="release-month">JAN</span>
+                  <span class="release-day">23</span>
+                  <span class="release-year">2026</span>
+                </div>
+                <div class="release-details">
+                  <span class="release-type">SEC Filing</span>
+                  <h3 class="release-title">2025 Form 10-K Annual Report</h3>
+                  <div class="release-actions">
+                    <a href="#" class="release-action-btn"><i data-lucide="file-text"></i> Form 10-K (PDF)</a>
+                    <a href="#" class="release-action-btn"><i data-lucide="external-link"></i> Interactive XBRL</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="ir-side-col">
+          <!-- Corporate Snapshot -->
+          <div class="ir-card stats-card">
+            <h2 class="card-title">Corporate Snapshot</h2>
+            <div class="stats-list">
+              <div class="stat-row">
+                <span class="stat-lbl">Founded</span>
+                <span class="stat-val">August 29, 1997</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-lbl">IPO Date</span>
+                <span class="stat-val">May 23, 2002</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-lbl">Headquarters</span>
+                <span class="stat-val">Los Gatos, California</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-lbl">Total Paid Members</span>
+                <span class="stat-val">270M+ (Q1 2026)</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-lbl">Co-CEO</span>
+                <span class="stat-val">Ted Sarandos</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-lbl">Co-CEO</span>
+                <span class="stat-val">Greg Peters</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-lbl">CFO</span>
+                <span class="stat-val">Spencer Neumann</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Upcoming Events -->
+          <div class="ir-card events-card">
+            <h2 class="card-title">Upcoming Events</h2>
+            <div class="events-list">
+              <div class="event-item">
+                <div class="event-cal-icon">
+                  <span class="cal-month">JUL</span>
+                  <span class="cal-day">16</span>
+                </div>
+                <div class="event-info">
+                  <h4 class="event-title">Q2 2026 Earnings Webcast</h4>
+                  <time class="event-time">3:00 PM PDT</time>
+                  <a href="#" class="event-link"><i data-lucide="calendar"></i> Add to Calendar</a>
+                </div>
+              </div>
+              <div class="event-item">
+                <div class="event-cal-icon">
+                  <span class="cal-month">OCT</span>
+                  <span class="cal-day">15</span>
+                </div>
+                <div class="event-info">
+                  <h4 class="event-title">Q3 2026 Earnings Webcast</h4>
+                  <time class="event-time">3:00 PM PDT</time>
+                  <a href="#" class="event-link"><i data-lucide="calendar"></i> Add to Calendar</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: FINANCIALS -->
+    <section id="tab-financials" class="ir-tab-content">
+      <div class="ir-card table-card">
+        <div class="card-header-row">
+          <h2 class="card-title">Quarterly Earnings Reports</h2>
+          <div class="year-filter-wrapper">
+            <select id="earningsYearFilter" class="ir-select">
+              <option value="2026">2026</option>
+              <option value="2025">2025</option>
+              <option value="2024">2024</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="table-responsive">
+          <table class="ir-table" id="earningsTable">
+            <thead>
+              <tr>
+                <th>Quarter</th>
+                <th>Release Date</th>
+                <th>Shareholder Letter</th>
+                <th>Financial Tables</th>
+                <th>SEC Filings</th>
+                <th>Webcast</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- 2026 -->
+              <tr class="year-row-2026">
+                <td><strong>Q1 2026</strong></td>
+                <td>Apr 18, 2026</td>
+                <td><a href="#" class="tbl-action"><i data-lucide="file-text"></i> PDF</a></td>
+                <td><a href="#" class="tbl-action"><i data-lucide="table"></i> XLS</a></td>
+                <td><a href="#" class="tbl-action"><i data-lucide="link"></i> 10-Q</a></td>
+                <td><a href="#" class="tbl-action"><i data-lucide="play-circle"></i> Listen</a></td>
+              </tr>
+              <!-- 2025 -->
+              <tr class="year-row-2025">
+                <td><strong>Q4 2025</strong></td>
+                <td>Jan 23, 2025</td>
+                <td><a href="#" class="tbl-action"><i data-lucide="file-text"></i> PDF</a></td>
+                <td><a href="#" class="tbl-action"><i data-lucide="table"></i> XLS</a></td>
+                <td><a href="#" class="tbl-action"><i data-lucide="link"></i> 10-K</a></td>
+                <td><a href="#" class="tbl-action"><i data-lucide="play-circle"></i> Listen</a></td>
+              </tr>
+              <tr class="year-row-2025">
+                <td><strong>Q3 2025</strong></td>
+                <td>Oct 17, 2025</td>
+                <td><a href="#" class="tbl-action"><i data-lucide="file-text"></i> PDF</a></td>
+                <td><a href="#" class="tbl-action"><i data-lucide="table"></i> XLS</a></td>
+                <td><a href="#" class="tbl-action"><i data-lucide="link"></i> 10-Q</a></td>
+                <td><a href="#" class="tbl-action"><i data-lucide="play-circle"></i> Listen</a></td>
+              </tr>
+              <tr class="year-row-2025">
+                <td><strong>Q2 2025</strong></td>
+                <td>Jul 18, 2025</td>
+                <td><a href="#" class="tbl-action"><i data-lucide="file-text"></i> PDF</a></td>
+                <td><a href="#" class="tbl-action"><i data-lucide="table"></i> XLS</a></td>
+                <td><a href="#" class="tbl-action"><i data-lucide="link"></i> 10-Q</a></td>
+                <td><a href="#" class="tbl-action"><i data-lucide="play-circle"></i> Listen</a></td>
+              </tr>
+              <tr class="year-row-2025">
+                <td><strong>Q1 2025</strong></td>
+                <td>Apr 18, 2025</td>
+                <td><a href="#" class="tbl-action"><i data-lucide="file-text"></i> PDF</a></td>
+                <td><a href="#" class="tbl-action"><i data-lucide="table"></i> XLS</a></td>
+                <td><a href="#" class="tbl-action"><i data-lucide="link"></i> 10-Q</a></td>
+                <td><a href="#" class="tbl-action"><i data-lucide="play-circle"></i> Listen</a></td>
+              </tr>
+              <!-- 2024 -->
+              <tr class="year-row-2024">
+                <td><strong>Q4 2024</strong></td>
+                <td>Jan 23, 2025</td>
+                <td><a href="#" class="tbl-action"><i data-lucide="file-text"></i> PDF</a></td>
+                <td><a href="#" class="tbl-action"><i data-lucide="table"></i> XLS</a></td>
+                <td><a href="#" class="tbl-action"><i data-lucide="link"></i> 10-K</a></td>
+                <td><a href="#" class="tbl-action"><i data-lucide="play-circle"></i> Listen</a></td>
+              </tr>
+              <tr class="year-row-2024">
+                <td><strong>Q3 2024</strong></td>
+                <td>Oct 17, 2024</td>
+                <td><a href="#" class="tbl-action"><i data-lucide="file-text"></i> PDF</a></td>
+                <td><a href="#" class="tbl-action"><i data-lucide="table"></i> XLS</a></td>
+                <td><a href="#" class="tbl-action"><i data-lucide="link"></i> 10-Q</a></td>
+                <td><a href="#" class="tbl-action"><i data-lucide="play-circle"></i> Listen</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="ir-grid-layout mt-30">
+        <!-- Annual Reports card -->
+        <div class="ir-card">
+          <h2 class="card-title">Annual Reports &amp; Proxies</h2>
+          <div class="download-list">
+            <a href="#" class="download-item-link">
+              <span class="d-title">2025 Annual Report (Form 10-K)</span>
+              <span class="d-meta"><i data-lucide="download"></i> PDF (1.8MB)</span>
+            </a>
+            <a href="#" class="download-item-link">
+              <span class="d-title">2026 Proxy Statement</span>
+              <span class="d-meta"><i data-lucide="download"></i> PDF (920KB)</span>
+            </a>
+            <a href="#" class="download-item-link">
+              <span class="d-title">2024 Annual Report (Form 10-K)</span>
+              <span class="d-meta"><i data-lucide="download"></i> PDF (1.7MB)</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- SEC filings card -->
+        <div class="ir-card">
+          <h2 class="card-title">Latest SEC Filings</h2>
+          <div class="download-list">
+            <a href="#" class="download-item-link">
+              <span class="d-type-tag filing-tag">8-K</span>
+              <span class="d-title">Current Report - Disclosure of Q1 Earnings</span>
+              <span class="d-date">Apr 18, 2026</span>
+            </a>
+            <a href="#" class="download-item-link">
+              <span class="d-type-tag filing-tag">4</span>
+              <span class="d-title">Statement of Changes in Beneficial Ownership</span>
+              <span class="d-date">Mar 12, 2026</span>
+            </a>
+            <a href="#" class="download-item-link">
+              <span class="d-type-tag filing-tag">10-Q</span>
+              <span class="d-title">Quarterly Financial Report for Q1 2026</span>
+              <span class="d-date">Apr 18, 2026</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: STOCK INFO -->
+    <section id="tab-stock" class="ir-tab-content">
+      <div class="ir-grid-layout">
+        <!-- Interactive Chart Card -->
+        <div class="ir-card chart-card">
+          <div class="chart-header">
+            <div>
+              <h2 class="card-title">Interactive Ticker Chart</h2>
+              <span class="chart-subtitle">NFLX (NASDAQ)</span>
+            </div>
+            <div class="chart-timeframe-selector" id="chartTimeframes">
+              <button class="time-btn" data-range="1D">1D</button>
+              <button class="time-btn" data-range="5D">5D</button>
+              <button class="time-btn active" data-range="1M">1M</button>
+              <button class="time-btn" data-range="6M">6M</button>
+              <button class="time-btn" data-range="1Y">1Y</button>
+              <button class="time-btn" data-range="5Y">5Y</button>
+            </div>
+          </div>
+          
+          <!-- Chart Visual Container -->
+          <div class="chart-visual-wrapper">
+            <svg class="stock-svg-chart" id="stockSvgChart" viewBox="0 0 800 300">
+              <defs>
+                <linearGradient id="chartGlow" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#e50914" stop-opacity="0.25"></stop>
+                  <stop offset="100%" stop-color="#e50914" stop-opacity="0"></stop>
+                </linearGradient>
+              </defs>
+              <!-- Filled Area Under Chart -->
+              <path class="chart-area-path" id="chartAreaPath" fill="url(#chartGlow)" d=""></path>
+              <!-- Chart Line -->
+              <path class="chart-line-path" id="chartLinePath" stroke="#e50914" stroke-width="3" fill="none" d=""></path>
+              <!-- Chart Hover Line -->
+              <line class="chart-hover-line" id="chartHoverLine" x1="0" y1="0" x2="0" y2="300" stroke="rgba(255,255,255,0.15)" stroke-dasharray="4" style="display:none;"></line>
+              <!-- Chart Hover Circle -->
+              <circle class="chart-hover-circle" id="chartHoverCircle" r="6" fill="#e50914" stroke="white" stroke-width="2" style="display:none;"></circle>
+            </svg>
+            <div class="chart-tooltip" id="chartTooltip"></div>
+          </div>
+        </div>
+
+        <!-- Investment Calculator Card -->
+        <div class="ir-card calculator-card">
+          <h2 class="card-title">Investment Calculator</h2>
+          <p class="calc-lead">Calculate what an investment in netflex (NFLX) would be worth today.</p>
+          
+          <form class="calculator-form" id="investmentCalculator">
+            <div class="form-group">
+              <label for="calcAmount">Investment Amount ($)</label>
+              <input type="number" id="calcAmount" class="ir-input" value="1000" min="10" required/>
+            </div>
+            <div class="form-group">
+              <label for="calcYear">Purchase Year</label>
+              <select id="calcYear" class="ir-select">
+                <option value="2002">2002 (IPO Year)</option>
+                <option value="2005">2005</option>
+                <option value="2010">2010</option>
+                <option value="2015">2015</option>
+                <option value="2020">2020</option>
+                <option value="2023">2023</option>
+              </select>
+            </div>
+            <button type="submit" class="calc-submit-btn">Calculate Returns</button>
+          </form>
+
+          <div class="calculator-result" id="calculatorResult" style="display:none;">
+            <div class="res-divider"></div>
+            <div class="res-item">
+              <span class="res-lbl">Total Value Today</span>
+              <span class="res-val highlight-red" id="calcResultValue">$45,210.00</span>
+            </div>
+            <div class="res-item">
+              <span class="res-lbl">Total Growth</span>
+              <span class="res-val" id="calcResultGrowth">+4,421%</span>
+            </div>
+            <div class="res-item">
+              <span class="res-lbl">Annualized Return (CAGR)</span>
+              <span class="res-val" id="calcResultCAGR">26.8%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: GOVERNANCE -->
+    <section id="tab-governance" class="ir-tab-content">
+      <div class="governance-intro">
+        <h2 class="card-title">Board of Directors &amp; Executive Leadership</h2>
+        <p class="governance-lead">netflex is committed to strong corporate governance practices that serve the interests of our stockholders and promote corporate sustainability.</p>
+      </div>
+
+      <div class="leadership-grid">
+        <!-- Leader 1 -->
+        <article class="leader-card">
+          <div class="leader-avatar">
+            <i data-lucide="user" class="leader-placeholder-icon"></i>
+          </div>
+          <div class="leader-info">
+            <h3 class="leader-name">Ted Sarandos</h3>
+            <p class="leader-role">Co-Chief Executive Officer</p>
+            <button class="leader-bio-btn" data-leader="ted">Read Bio</button>
+          </div>
+        </article>
+
+        <!-- Leader 2 -->
+        <article class="leader-card">
+          <div class="leader-avatar">
+            <i data-lucide="user" class="leader-placeholder-icon"></i>
+          </div>
+          <div class="leader-info">
+            <h3 class="leader-name">Greg Peters</h3>
+            <p class="leader-role">Co-Chief Executive Officer</p>
+            <button class="leader-bio-btn" data-leader="greg">Read Bio</button>
+          </div>
+        </article>
+
+        <!-- Leader 3 -->
+        <article class="leader-card">
+          <div class="leader-avatar">
+            <i data-lucide="user" class="leader-placeholder-icon"></i>
+          </div>
+          <div class="leader-info">
+            <h3 class="leader-name">Spencer Neumann</h3>
+            <p class="leader-role">Chief Financial Officer</p>
+            <button class="leader-bio-btn" data-leader="spencer">Read Bio</button>
+          </div>
+        </article>
+
+        <!-- Leader 4 -->
+        <article class="leader-card">
+          <div class="leader-avatar">
+            <i data-lucide="user" class="leader-placeholder-icon"></i>
+          </div>
+          <div class="leader-info">
+            <h3 class="leader-name">Reed Hastings</h3>
+            <p class="leader-role">Executive Chairman</p>
+            <button class="leader-bio-btn" data-leader="reed">Read Bio</button>
+          </div>
+        </article>
+      </div>
+
+      <!-- Governance Documents Card -->
+      <div class="ir-card table-card mt-40">
+        <h2 class="card-title">Governance Documents</h2>
+        <div class="governance-docs-list">
+          <a href="#" class="gov-doc-item">
+            <span class="gov-doc-title"><i data-lucide="file-text" class="red-icon"></i> Corporate Governance Guidelines</span>
+            <span class="gov-doc-action"><i data-lucide="download"></i> PDF</span>
+          </a>
+          <a href="#" class="gov-doc-item">
+            <span class="gov-doc-title"><i data-lucide="file-text" class="red-icon"></i> Code of Ethical Conduct</span>
+            <span class="gov-doc-action"><i data-lucide="download"></i> PDF</span>
+          </a>
+          <a href="#" class="gov-doc-item">
+            <span class="gov-doc-title"><i data-lucide="file-text" class="red-icon"></i> Audit Committee Charter</span>
+            <span class="gov-doc-action"><i data-lucide="download"></i> PDF</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: FAQ -->
+    <section id="tab-faq" class="ir-tab-content">
+      <div class="ir-card">
+        <h2 class="card-title">Top Investor Questions</h2>
+        <div class="ir-faq-list">
+          <!-- FAQ 1 -->
+          <details class="ir-faq-item">
+            <summary class="ir-faq-question">
+              How does netflex account for content costs?
+              <span class="faq-chevron"><i data-lucide="chevron-down"></i></span>
+            </summary>
+            <div class="ir-faq-answer">
+              <p>We cash-flow and capitalize content costs when they are produced or acquired. We then amortize these costs over the estimated viewing window of the content, which typically occurs on an accelerated basis where the majority of viewing occurs within the first two years of release.</p>
+            </div>
+          </details>
+
+          <!-- FAQ 2 -->
+          <details class="ir-faq-item">
+            <summary class="ir-faq-question">
+              What is netflex's capital allocation strategy?
+              <span class="faq-chevron"><i data-lucide="chevron-down"></i></span>
+            </summary>
+            <div class="ir-faq-answer">
+              <p>Our top priority is to reinvest in our core business to drive long-term revenue growth and margin expansion. Second, we aim to maintain a robust investment-grade balance sheet. Third, we return excess cash to stockholders through share repurchases.</p>
+            </div>
+          </details>
+
+          <!-- FAQ 3 -->
+          <details class="ir-faq-item">
+            <summary class="ir-faq-question">
+              How does foreign exchange (FX) risk impact revenues?
+              <span class="faq-chevron"><i data-lucide="chevron-down"></i></span>
+            </summary>
+            <div class="ir-faq-answer">
+              <p>Because we operate internationally but report in USD, fluctuations in currencies impact our revenue numbers. We generally align our pricing with local market conditions over time to compensate for foreign exchange movements, though there can be temporary impacts on our operating margins.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== EMAIL ALERTS NEWSLETTER ==================== -->
+    <section class="ir-alerts-section" id="email-alerts">
+      <div class="ir-alerts-card">
+        <div class="ir-alerts-glow"></div>
+        <div class="ir-alerts-content">
+          <h2 class="alerts-title">IR Email Alerts</h2>
+          <p class="alerts-desc">Sign up to receive email notifications regarding financial releases, SEC filings, and investor event updates.</p>
+          
+          <form class="alerts-form" id="irAlertsForm">
+            <input type="email" id="alertsEmail" class="alerts-input" placeholder="Enter your email address" required/>
+            <button type="submit" class="alerts-submit-btn">Subscribe</button>
+          </form>
+          <p class="alerts-success-msg" id="alertsSuccessMsg">Successfully subscribed to investor alerts!</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== BIO MODAL ==================== -->
+  <div class="bio-modal-overlay" id="bioModalOverlay">
+    <div class="bio-modal">
+      <button class="bio-modal-close" id="bioModalClose"><i data-lucide="x"></i></button>
+      <h3 class="bio-modal-name" id="bioModalName">Ted Sarandos</h3>
+      <span class="bio-modal-role" id="bioModalRole">Co-Chief Executive Officer</span>
+      <div class="bio-modal-body" id="bioModalBody">
+        <!-- Content injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="ir-footer">
+    <div class="ir-footer-inner">
+      <div class="ir-footer-cols">
+        <div class="ir-footer-col">
+          <h4>Investor Relations Contact</h4>
+          <p>Email: <a href="mailto:ir@netflix.com">ir@netflex.com</a></p>
+        </div>
+        <div class="ir-footer-col">
+          <h4>Transfer Agent</h4>
+          <p>Computershare Trust Company, N.A.</p>
+          <p>Phone: (800) 568-3476</p>
+        </div>
+        <div class="ir-footer-col">
+          <h4>Quick Links</h4>
+          <ul class="quick-links-list">
+            <li><a href="{% url 'landing' %}">netflex Home</a></li>
+            <li><a href="{% url 'mediacenter' %}">Media Center</a></li>
+            <li><a href="{% url 'helpcenter' %}">Help Center</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="ir-footer-copyright">
+        <span>&copy; 2026 netflex, Inc. All rights reserved.</span>
+        <span>Created for student course project NUM-CS.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{% static 'js/site.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Netflex{% endblock %}</title>
+    <link rel="icon" href="{% static 'pic/netflix.webp' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="{% url 'home' %}" class="logo">
+                <img src="{% static 'img/netflixname.png' %}" alt="Netflex">
+            </a>
+            <ul class="nav-links">
+                <li><a href="{% url 'home' %}" data-nav="home">Home</a></li>
+                <li><a href="{% url 'mylist_page' %}" data-nav="mylist">My List</a></li>
+            </ul>
+        </div>
+        <div class="nav-right">
+            <form class="search-container" action="{% url 'search_page' %}" method="get">
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="search-input" name="q" placeholder="Titles, people, genres" value="{{ request.GET.q }}">
+            </form>
+            <div class="profile-menu">
+                <div class="profile-trigger" id="profile-trigger">
+                    <div class="profile-avatar">{{ request.profile.initial }}</div>
+                    <svg class="caret-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+                <div class="profile-dropdown" id="profile-dropdown">
+                    <div class="profile-item">
+                        <div class="profile-avatar small">{{ request.profile.initial }}</div>
+                        <span>{{ request.profile.name }}</span>
+                    </div>
+                    <a href="{% url 'profiles' %}" class="profile-link">Switch Profiles</a>
+                    <a href="{% url 'manage_profiles' %}" class="profile-link">Manage Profiles</a>
+                    <a href="{% url 'helpcenter' %}" class="profile-link">Help Center</a>
+                    <div class="profile-divider"></div>
+                    <a href="{% url 'signout' %}" class="profile-link">Sign Out of Netflex</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+    <script src="{% static 'js/app.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>

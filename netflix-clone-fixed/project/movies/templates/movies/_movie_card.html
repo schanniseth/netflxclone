@@ -1,0 +1,26 @@
+{% load movie_extras %}
+<div class="movie-card" data-movie-id="{{ movie.id }}">
+    <a href="{% url 'movie_detail' movie.id %}">
+        {% if movie.poster_url %}
+        <img src="{{ movie.poster_url }}" alt="{{ movie.title }}">
+        {% else %}
+        <div class="no-poster">{{ movie.title }}</div>
+        {% endif %}
+    </a>
+    <div class="movie-card-title">{{ movie.title }}</div>
+    <div class="movie-card-overlay">
+        <div class="overlay-buttons">
+            <a class="overlay-btn overlay-play" href="{% url 'watch' movie.id %}" aria-label="Play" title="Play">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </a>
+            <button class="overlay-btn overlay-add js-mylist-toggle {% if movie.id|in_ids:mylist_ids %}in-list{% endif %}"
+                    data-movie-id="{{ movie.id }}" aria-label="Add to My List" title="Add to My List">
+                <svg class="icon-add" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                <svg class="icon-check" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </button>
+            <a class="overlay-btn overlay-info" href="{% url 'movie_detail' movie.id %}" aria-label="More info" title="More info">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            </a>
+        </div>
+    </div>
+</div>

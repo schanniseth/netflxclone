@@ -1,0 +1,398 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflex Cambodia - Watch TV Shows</title>
+    <link rel="icon" href="{% static 'pic/netflix.webp' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Inter:wght@700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/site.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive-fixes.css' %}">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="{% static 'js/site.js' %}" defer></script>
+
+    <!-- GUARANTEED POPUP STYLING (Prevents the raw text dump) -->
+    <style>
+        .cookie-modal {
+            display: none !important; /* Forces it hidden by default */
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: 999999;
+            font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+        }
+        .cookie-modal.is-open {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+        }
+        .cookie-modal__overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .cookie-modal__content {
+            position: relative;
+            background-color: #ffffff;
+            color: #333333;
+            width: 90%; max-width: 850px; height: 80vh;
+            border-radius: 4px;
+            display: flex; flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 1000000;
+        }
+        .cookie-modal__header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 25px; border-bottom: 1px solid #e5e5e5;
+        }
+        .cookie-modal__header-left { display: flex; align-items: center; gap: 20px; }
+        .cookie-modal__logo { height: 22px; }
+        .cookie-modal__header h2 { font-size: 20px; color: #222222; font-weight: 700; margin: 0; }
+        .cookie-modal__close { background: none; border: none; font-size: 28px; cursor: pointer; color: #666666; line-height: 1; }
+        .cookie-modal__body { display: flex; flex: 1; overflow: hidden; }
+        .cookie-modal__sidebar { width: 300px; background-color: #f4f4f4; border-right: 1px solid #e5e5e5; overflow-y: auto; }
+        .cookie-tab-btn {
+            width: 100%; text-align: left; padding: 18px 20px; background: none; border: none;
+            border-bottom: 1px solid #e5e5e5; font-size: 14px; font-weight: 600; color: #444444; cursor: pointer; position: relative;
+        }
+        .cookie-tab-btn:hover { background-color: #eaeaea; }
+        .cookie-tab-btn.active { background-color: #ffffff; color: #111111; }
+        .cookie-tab-btn.active::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background-color: #e50914; }
+        .cookie-modal__pane { flex: 1; padding: 30px; overflow-y: auto; background-color: #ffffff; }
+        .cookie-tab-content { display: none; }
+        .cookie-tab-content.active { display: block; }
+        .cookie-tab-content h3 { font-size: 16px; margin-top: 0; margin-bottom: 15px; color: #111111; }
+        .cookie-tab-content p { font-size: 14px; line-height: 1.6; color: #555555; margin-bottom: 15px; }
+        .cookie-tab-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .cookie-switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+        .cookie-switch input { opacity: 0; width: 0; height: 0; }
+        .cookie-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; border-radius: 24px; transition: .3s; }
+        .cookie-slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; border-radius: 50%; transition: .3s; }
+        input:checked + .cookie-slider { background-color: #449d44; }
+        input:checked + .cookie-slider:before { transform: translateX(20px); }
+        .cookie-modal__footer { padding: 15px 25px; border-top: 1px solid #e5e5e5; display: flex; justify-content: space-between; align-items: center; background-color: #ffffff; }
+        .btn-save-settings { background-color: #e50914; color: #ffffff; border: none; padding: 10px 24px; font-weight: 600; font-size: 14px; border-radius: 2px; cursor: pointer; }
+        .btn-save-settings:hover { background-color: #b80710; }
+        .powered-by { font-size: 12px; color: #777; }
+
+        /* Responsive: stack the cookie preference modal on small screens */
+        @media (max-width: 700px) {
+            .cookie-modal__content { width: 94%; height: 88vh; }
+            .cookie-modal__body { flex-direction: column; }
+            .cookie-modal__sidebar {
+                width: 100%;
+                max-height: 160px;
+                overflow-x: auto;
+                overflow-y: hidden;
+                display: flex;
+                border-right: none;
+                border-bottom: 1px solid #e5e5e5;
+            }
+            .cookie-tab-btn {
+                white-space: nowrap;
+                border-bottom: none;
+                border-right: 1px solid #e5e5e5;
+                padding: 14px 16px;
+            }
+            .cookie-modal__pane { padding: 20px; }
+            .cookie-modal__header h2 { font-size: 17px; }
+            .cookie-modal__footer { flex-direction: column; gap: 10px; align-items: flex-start; }
+        }
+    </style>
+</head>
+
+<body class="landingpage">
+    <header class="head">
+        <img src="{% static 'pic/netflixname.png' %}" class="logo" alt="netflex logo">
+        <a href="{% url 'signin' %}" class="btn btn--signin">Sign In</a>
+    </header>
+
+    <section class="hero">
+        <div class="shortdes">
+            <h1>Unlimited movies, TV <br>shows, and more</h1>
+            <h5>Starts at USD 2,99. Cancel anytime.</h5>
+            <h5>Ready to watch? Enter your email to create or restart your <br>membership.</h5>
+        </div>
+
+        <form class="signup" action="{% url 'check_email' %}">
+            <input type="email" name="email" placeholder="Email address" class="signup__input" required>
+            <button type="submit" class="btn btn--signup">
+                <span>Get Started</span>
+                <i data-lucide="chevron-right"></i>
+            </button>
+        </form>
+    </section>
+
+    <section class="arc-section">
+        <svg class="arc-svg" viewBox="0 0 1440 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <radialGradient id="blueGlow" cx="50%" cy="0%" r="60%" fx="50%" fy="0%">
+                    <stop offset="0%" stop-color="#0a1931" stop-opacity="0.9" />
+                    <stop offset="50%" stop-color="#000714" stop-opacity="0.6" />
+                    <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+                </radialGradient>
+            </defs>
+            <path d="M 0,50 Q 720,0 1440,50 L 1440,400 L 0,400 Z" fill="#000000" />
+            <path d="M 0,50 Q 720,0 1440,50 L 1440,400 L 0,400 Z" fill="url(#blueGlow)" />
+            <path d="M 0,50 Q 720,0 1440,50" fill="none" stroke="#dc143c" stroke-width="3" />
+        </svg>
+
+        <div class="content-container">
+            <h2 class="trending-title">Trending Now</h2>
+
+            <div class="trending-wrapper">
+                <button class="scroll-btn scroll-btn--left" aria-label="Scroll left">
+                    <i data-lucide="chevron-left"></i>
+                </button>
+
+                <div class="trending" id="trendingRow">
+                    <div class="postercard">
+                        <div class="posternumber">1</div>
+                        <img src="{% static 'pic/peaky1.webp' %}" alt="Peaky Blinders" class="poster">
+                    </div>
+                    <div class="postercard">
+                        <div class="posternumber">2</div>
+                        <img src="{% static 'pic/peaky2.jpg' %}" alt="Peaky Blinders" class="poster">
+                    </div>
+                    <div class="postercard">
+                        <div class="posternumber">3</div>
+                        <img src="{% static 'pic/peaky3.jpg' %}" alt="Peaky Blinders" class="poster">
+                    </div>
+                    <div class="postercard">
+                        <div class="posternumber">4</div>
+                        <img src="{% static 'pic/peaky4.webp' %}" alt="Peaky Blinders" class="poster">
+                    </div>
+                    <div class="postercard">
+                        <div class="posternumber">5</div>
+                        <img src="{% static 'pic/peaky5.webp' %}" alt="Peaky Blinders" class="poster">
+                    </div>
+                    <div class="postercard">
+                        <div class="posternumber">6</div>
+                        <img src="{% static 'pic/peaky6.jpg' %}" alt="Peaky Blinders" class="poster">
+                    </div>
+                    <div class="postercard">
+                        <div class="posternumber">7</div>
+                        <img src="{% static 'pic/pacific.jpg' %}" alt="Pacific Rim" class="poster">
+                    </div>
+                    <div class="postercard">
+                        <div class="posternumber">8</div>
+                        <img src="{% static 'pic/pacific2.jpg' %}" alt="Pacific Rim" class="poster">
+                    </div>
+                </div>
+
+                <button class="scroll-btn scroll-btn--right" aria-label="Scroll right">
+                    <i data-lucide="chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="reasons-section">
+        <div class="reasons-inner">
+            <h2 class="reasons-title">More Reasons to Join</h2>
+
+            <div class="reasons-grid">
+                <div class="reason-card">
+                    <div class="reason-text">
+                        <h3>Enjoy on your TV</h3>
+                        <p>Watch on Smart TVs, PlayStation, Xbox, Chromecast, Apple TV, Blu-ray players, and more.</p>
+                    </div>
+                    <div class="reason-icon reason-icon--tv">
+                        <i data-lucide="tv"></i>
+                    </div>
+                </div>
+
+                <div class="reason-card">
+                    <div class="reason-text">
+                        <h3>Download your shows to watch offline</h3>
+                        <p>Save your favorites easily and always have something to watch.</p>
+                    </div>
+                    <div class="reason-icon reason-icon--download">
+                        <i data-lucide="arrow-down"></i>
+                    </div>
+                </div>
+
+                <div class="reason-card">
+                    <div class="reason-text">
+                        <h3>Watch everywhere</h3>
+                        <p>Stream unlimited movies and TV shows on your phone, tablet, laptop, and TV.</p>
+                    </div>
+                    <div class="reason-icon reason-icon--everywhere">
+                        <i data-lucide="wand-2"></i>
+                    </div>
+                </div>
+
+                <div class="reason-card">
+                    <div class="reason-text">
+                        <h3>Create profiles for kids</h3>
+                        <p>Send kids on adventures with their favorite characters in a space made just for them — free with your membership.</p>
+                    </div>
+                    <div class="reason-icon reason-icon--kids">
+                        <i data-lucide="smile"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="FAQ">
+        <div class="faqinner">
+            <h2 class="faqtitle">Frequently Asked Questions</h2>
+
+            <div class="faq-list">
+                <details class="faq-item" open>
+                    <summary class="faq-question">
+                        What is Netflex?
+                        <span class="faq-icon"></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>Netflex is a streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries, and more on thousands of internet-connected devices.</p>
+                        <p>You can watch as much as you want, whenever you want without a single commercial – all for one low monthly price.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-question">
+                        How much does Netflex cost?
+                        <span class="faq-icon"></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>Watch Netflex on your smartphone, tablet, Smart TV, laptop, or streaming device, all for one fixed monthly fee. Plans range from USD 2.99 to USD 9.99/month.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-question">
+                        Where can I watch?
+                        <span class="faq-icon"></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>Watch anywhere, anytime. Sign in with your Netflex account to watch instantly on the web at netflex.com from your personal computer or any streaming device.</p>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <section class="bottomsection">
+        <div class="bottomtext">
+            <p>Ready to watch? Enter your email to create or restart your membership.</p>
+        </div>
+        <form class="signupbottom" action="{% url 'check_email' %}">
+            <input type="email" name="email" placeholder="Email address" class="signup__input" required>
+            <button type="submit" class="btn btn--signup">
+                <span>Get Started</span>
+                <i data-lucide="chevron-right"></i>
+            </button>
+        </form>
+    </section>
+
+    <section class="footer">
+        <div class="footer-inner">
+            <p class="questions"><a href="{% url 'contactus' %}">Questions? Contact us.</a></p>
+            <div class="footerlinks">
+                <div class="col1">
+                    <p><a href="{% url 'faq' %}">FAQ</a></p>
+                    <p><a href="{% url 'mediacenter' %}">Media Center</a></p>
+                    <p><a href="{% url 'waystowatch' %}">Ways to Watch</a></p>
+                    <p><a href="#" id="cookiePrefLink">Cookie Preferences</a></p>
+                    <p><a href="https://www.speedtest.net/">Speed Test</a></p>
+                </div>
+                <div class="col2">
+                    <p><a href="{% url 'helpcenter' %}">Help Center</a></p>
+                    <p><a href="{% url 'investorrel' %}">Investor Relations</a></p>
+                    <p><a href="{% url 'termofuse' %}">Terms of Use</a></p>
+                    <p><a href="{% url 'corporateinfo' %}">Corporate Information</a></p>
+                    <p><a href="{% url 'legalnotice' %}">Legal Notices</a></p>
+                </div>
+                <div class="col3">
+                    <p><a href="{% url 'signin' %}">Account</a></p>
+                    <p><a href="{% url 'job' %}">Jobs</a></p>
+                    <p><a href="{% url 'privacy' %}">privacy</a></p>
+                    <p><a href="{% url 'contactus' %}">Contact US</a></p>
+                    <p><a href="{% url 'onlyonnetflix' %}">Only on Netflex</a></p>
+                </div>
+            </div>
+            <div class="lang-wrapper">
+                <button class="lang-selector" id="langBtn">
+                    <i data-lucide="languages" class="lang-icon"></i>
+                    <span id="langLabel">English</span>
+                    <i data-lucide="chevron-down" class="chevron-icon" id="chevronIcon"></i>
+                </button>
+                <ul class="lang-dropdown" id="langDropdown">
+                    <li data-lang="English">English</li>
+                </ul>
+            </div>
+            <div class="belowtext">
+                <h7 class="netflexcambodia">Netflex Cambodia</h7>
+                <p class="numcs">This page is created by NUM-CS</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cookie Popup Component -->
+    <div id="cookieModal" class="cookie-modal">
+        <div class="cookie-modal__overlay" id="cookieOverlay"></div>
+        <div class="cookie-modal__content">
+            <header class="cookie-modal__header">
+                <div class="cookie-modal__header-left">
+                    <img src="{% static 'pic/nname.png' %}" alt="Netflex logo" class="cookie-modal__logo">
+                    <h2>Privacy Preference Center</h2>
+                </div>
+                <button class="cookie-modal__close" id="closeCookieModal">&times;</button>
+            </header>
+
+            <div class="cookie-modal__body">
+                <aside class="cookie-modal__sidebar">
+                    <button class="cookie-tab-btn active" data-tab="generalDesc">General Description</button>
+                    <button class="cookie-tab-btn" data-tab="essentialCookies">Essential Cookies</button>
+                    <button class="cookie-tab-btn" data-tab="firstPartyCookies">First Party Performance and Functionality Cookies</button>
+                    <button class="cookie-tab-btn" data-tab="thirdPartyCookies">Third Party Performance and Functionality Cookies</button>
+                    <button class="cookie-tab-btn" data-tab="advertisingCookies">Advertising Cookies</button>
+                </aside>
+
+                <main class="cookie-modal__pane">
+                    <div id="generalDesc" class="cookie-tab-content active">
+                        <h3>General Description</h3>
+                        <p>This cookie tool will help you understand the use of cookies on the Netflex service, and how you can control the use of these cookies.<br><br>Privacy settings in most browsers allow you to prevent your browser from accepting some or all cookies, notify you when it receives a new cookie, or disable cookies altogether. If your browser disables all cookies, then information will not be collected or stored via the cookies listed in this tool. This means that your use of the netflex service may be impaired.<br><br>Please note that when you use this cookie tool to opt out of certain cookies, your opt out preferences are recorded by placing a cookie on your device. Therefore, your browser must be configured to accept cookies in order for your preferences to take effect. Also, if you delete or clear your cookies, or change your web browser, you will need to reset your cookie preferences.<br><br>For more information on our use of cookies, please visit the <b>Cookies and other Technologies</b> section of our <b>Privacy Statement</b>.</p>
+                    </div>
+                    <div id="essentialCookies" class="cookie-tab-content">
+                        <h3>Essential Cookies</h3>
+                        <p>These cookies are strictly necessary to provide the Netflex service. For example, we and our Service Providers may use these cookies to authenticate and identify users when they use our websites so we can provide our service to them. They also help us to administer and operate our business; for safety, security and fraud prevention; and to comply with law and enforce our <b>Terms of Use</b>. As these cookies are strictly necessary to provide our service, you cannot opt out of them.<br><br>Lifespan: Most cookies are session cookies (e.g. only active until you close your browser). Some cookies are active for a longer time, ranging from 3 to 12 months. The cookies used to prevent fraud and maintain the security or our services are active for a maximum period of 24 months.</p>
+                    </div>
+                    <div id="firstPartyCookies" class="cookie-tab-content">
+                        <h3>First Party Performance Cookies</h3>
+                        <p>These cookies help us to customize and enhance your online experience with the Netflex service. For example, they help us to remember your preferences and prevent you from needing to re-enter information you previously provided (for example, during member sign up). We also use these cookies to collect information (such as popular pages, conversion rates, viewing patterns, click-through and other information) about our visitors' use of the netflex service so that we can provide our service and also to research, analyze and improve our services. Deletion of these types of cookies may result in limited functionality of our service.<br><br>Lifespan: Most cookies are only active for one day. Some cookies are active for a longer time, ranging from 3 to 12 months.</p>
+                    </div>
+                    <div id="thirdPartyCookies" class="cookie-tab-content">
+                        <div class="cookie-tab-header">
+                            <h3>Third Party Performance Cookies</h3>
+                            <label class="cookie-switch"><input type="checkbox" checked><span class="cookie-slider"></span></label>
+                        </div>
+                        <p>These cookies, set by third parties, help us to customize and enhance your online experience with Netflex. The cookies in this category are only set on Tudum (our official fandom site). We use these cookies to provide you experiences hosted by third parties, like displaying social media content. For further information on how these third parties use such cookies, please see the privacy information provided by the third party on their website. Deletion of these types of cookies may result in limited functionality.</p>
+                    </div>
+                    <div id="advertisingCookies" class="cookie-tab-content">
+                        <div class="cookie-tab-header">
+                            <h3>Advertising Cookies</h3>
+                            <label class="cookie-switch"><input type="checkbox" checked><span class="cookie-slider"></span></label>
+                        </div>
+                        <p>These cookies collect information via the Netflex service in connection with “Advertisements” (as defined in our <b>Terms of Use</b>). “Advertising Companies” (as defined in our <b>Privacy Statement</b>) may also collect information via these cookies in connection with Advertisements. If you opt out of advertising cookies, you may still see Advertisements on the netflex service but they will not be based on information collected from advertising cookies.<br><br>“Netflex Marketing Providers” (also defined in the our <b>Privacy Statement</b>) may also collect information via advertising cookies in connection with netflex marketing campaigns promoting the netflex service or netflex content, such as our ads on third party services. If you opt out of advertising cookies, you may still see Netflex marketing campaigns promoting the Netflex service or Netflex content, but they will not be based on information collected from these advertising cookies.<br><br>Finally, Netflex supports the self-regulatory Principles for Online Behavioral Advertising programs of the Digital Advertising Alliance (DAA), the Digital Advertising Alliance of Canada (DAAC), and the European Interactive Digital Advertising Alliance (EDAA).</p>
+                    </div>
+                </main>
+            </div>
+
+            <footer class="cookie-modal__footer">
+                <button class="btn-save-settings" id="saveCookieSettings">Save settings</button>
+                <span class="powered-by">Powered by <strong>OneTrust</strong></span>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>

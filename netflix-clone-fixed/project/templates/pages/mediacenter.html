@@ -1,0 +1,669 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="ltr" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta property="og:site_name" content="Netflex Media Center"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://media.netflix.com/en/"/>
+  <meta property="og:locale" content="en"/>
+  <meta name="description" content="Netflex Media Center - Latest news, press releases, and title information from Netflex."/>
+  <title>Netflex Media Center</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="https://media.netflix.com/static/images/favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="https://media.netflix.com/static/images/favicon-16x16.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="{% static 'css/site.css' %}"/>
+  <link rel="stylesheet" href="{% static 'css/responsive-fixes.css' %}"/>
+</head>
+<body class="content ltr">
+
+<!-- Mobile Sidebar Overlay -->
+<div id="sidebarOverlay" class="sidebar-overlay" aria-hidden="true"></div>
+
+<!-- Mobile Sidebar -->
+<aside id="sideBarDrawer" class="sidebar-drawer" aria-label="Sidebar navigation" role="dialog" aria-modal="true">
+  <div class="sidebar-inner">
+    <div class="sidebar-header">
+      <a href="{% url 'mediacenter' %}" class="sidebar-logo-link">
+        <img src="https://media.netflix.com/static/images/Netflix-Logo.svg" alt="netflex" class="sidebar-netflix-logo"/>
+        <span class="sidebar-media-text">Media Center</span>
+      </a>
+      <button id="closeSidebar" class="sidebar-close-btn" aria-label="Close Sidebar">
+        <svg viewBox="0 0 24 24" height="20" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
+    </div>
+
+    <div class="sidebar-search-section">
+      <form id="sidebarSearchForm" role="search" class="sidebar-search-form" method="get" action="{% url 'mediacenter' %}">
+        <svg viewBox="0 0 24 24" height="16" fill="currentColor" class="sidebar-search-icon"><path fill="none" d="M0 0h24v24H0z"/><path fill-rule="evenodd" d="M11 18a7 7 0 10-7-7 7 7 0 007 7zm7-1.38l3.68 3.67-1.42 1.42L16.62 18A9 9 0 1118 16.62z"/></svg>
+        <input type="search" name="term" placeholder="Search" class="sidebar-search-input" autocomplete="off"/>
+      </form>
+    </div>
+
+    <nav class="sidebar-nav">
+      <ul class="sidebar-nav-list">
+        <li class="sidebar-nav-section">
+          <a href="{% url 'mediacenter' %}" class="sidebar-nav-link sidebar-nav-link--active">Home</a>
+        </li>
+        <li class="sidebar-nav-section">
+          <button class="sidebar-nav-link sidebar-nav-link--expandable" data-target="sidebarReleases">
+            Releases and Blogs
+            <svg viewBox="0 0 24 24" height="16" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+          </button>
+          <ul id="sidebarReleases" class="sidebar-sub-nav hidden">
+            <li><a class="sidebar-sub-link" href="mediacenter.html?filter=series">Series</a></li>
+            <li><a class="sidebar-sub-link" href="mediacenter.html?filter=film">Film</a></li>
+            <li><a class="sidebar-sub-link" href="mediacenter.html?filter=documentary">Documentary</a></li>
+            <li><a class="sidebar-sub-link" href="mediacenter.html?filter=standup">Stand-Up Comedy</a></li>
+            <li><a class="sidebar-sub-link" href="mediacenter.html?filter=kids">Kids</a></li>
+            <li><a class="sidebar-sub-link" href="mediacenter.html?filter=originals">Only On Netflex</a></li>
+          </ul>
+        </li>
+        <li class="sidebar-nav-section">
+          <a href="https://about.netflix.com/en/newsroom" target="_blank" class="sidebar-nav-link">Newsroom</a>
+        </li>
+        <li class="sidebar-nav-section">
+          <a href="{% url 'mediacenter' %}" class="sidebar-nav-link">Resources</a>
+        </li>
+        <li class="sidebar-nav-section">
+          <button class="sidebar-nav-link sidebar-nav-link--expandable" data-target="sidebarScreeners">
+            My Screeners
+            <svg viewBox="0 0 24 24" height="16" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+          </button>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer-btns">
+      <a href="{% url 'signin' %}" class="sidebar-login-btn">Log In</a>
+      <a href="{% url 'signup' %}" class="sidebar-register-btn">Register</a>
+    </div>
+  </div>
+</aside>
+
+<!-- Main App Wrapper -->
+<div id="__next">
+  <div class="mc-app">
+    <div class="bg-blur-wrapper">
+
+      <!-- ==================== HEADER / NAV ==================== -->
+      <header id="mainHeader" class="mc-header" role="banner">
+
+        <!-- Left: Search -->
+        <div class="header-search-container">
+          <form id="searchForm" role="search" class="header-search-form" method="get" action="{% url 'mediacenter' %}">
+            <input
+              id="navSearchInput"
+              tabindex="15"
+              class="header-search-input"
+              aria-label="Search"
+              data-testid="nav_search_input"
+              autocomplete="off"
+              autocapitalize="off"
+              type="search"
+              name="term"
+              placeholder="Search titles, news..."/>
+            <button type="submit" tabindex="10" aria-label="Open Search" title="Open Search"
+              class="header-search-btn" id="openSearchBtn" data-testid="open_search_button">
+              <svg viewBox="0 0 24 24" height="20" fill="currentColor">
+                <path fill="none" d="M0 0h24v24H0z"/>
+                <path fill-rule="evenodd" d="M11 18a7 7 0 10-7-7 7 7 0 007 7zm7-1.38l3.68 3.67-1.42 1.42L16.62 18A9 9 0 1118 16.62z"/>
+              </svg>
+            </button>
+          </form>
+        </div>
+
+        <!-- Center: Logo -->
+        <a href="{% url 'mediacenter' %}" class="header-logo-link" data-testid="main_logo_link">
+          <img src="https://media.netflix.com/static/images/Netflix-Logo.svg" alt="Netflix" class="header-netflix-logo"/>
+          <span class="header-media-center-text">Media Center</span>
+        </a>
+
+        <!-- Right: Nav Links + Auth -->
+        <nav class="header-nav" aria-label="Primary navigation">
+          <ul class="header-nav-list">
+            <li class="header-nav-item">
+              <a href="{% url 'mediacenter' %}" class="header-nav-link active">Home</a>
+            </li>
+            <li class="header-nav-item header-nav-item--dropdown">
+              <button class="header-nav-link header-nav-btn" id="releasesDropdownBtn" aria-expanded="false" aria-haspopup="true">
+                Releases &amp; Blogs
+                <svg viewBox="0 0 24 24" height="12" fill="currentColor" class="dropdown-caret"><path d="M7 10l5 5 5-5z"/></svg>
+              </button>
+              <div class="header-dropdown" id="releasesDropdown" role="menu" aria-hidden="true">
+                <a href="mediacenter.html?filter=series" class="header-dropdown-link" role="menuitem">Series</a>
+                <a href="mediacenter.html?filter=film" class="header-dropdown-link" role="menuitem">Film</a>
+                <a href="mediacenter.html?filter=documentary" class="header-dropdown-link" role="menuitem">Documentary</a>
+                <a href="mediacenter.html?filter=standup" class="header-dropdown-link" role="menuitem">Stand-Up Comedy</a>
+                <a href="mediacenter.html?filter=kids" class="header-dropdown-link" role="menuitem">Kids</a>
+                <div class="header-dropdown-divider"></div>
+                <a href="mediacenter.html?filter=originals" class="header-dropdown-link" role="menuitem">Only On netflex</a>
+                <a href="mediacenter.html?filter=event" class="header-dropdown-link" role="menuitem">Multi-Title Event</a>
+              </div>
+            </li>
+            <li class="header-nav-item">
+              <a href="https://about.netflix.com/en/newsroom" target="_blank" class="header-nav-link">Newsroom</a>
+            </li>
+            <li class="header-nav-item">
+              <a href="{% url 'mediacenter' %}" class="header-nav-link">Resources</a>
+            </li>
+            <li class="header-nav-item">
+              <a href="{% url 'signin' %}" class="header-nav-link header-nav-link--screeners">My Screeners</a>
+            </li>
+          </ul>
+          <div class="header-auth-btns">
+            <a href="{% url 'signin' %}" class="header-login-btn">Log In</a>
+            <a href="{% url 'signup' %}" class="header-register-btn">Register</a>
+          </div>
+        </nav>
+
+        <!-- Mobile: Hamburger Button -->
+        <button type="button" id="mobileMenuBtn" class="mobile-menu-btn"
+          aria-label="Open Sidebar" aria-expanded="false" aria-controls="sideBarDrawer"
+          data-testid="mobile_sidebar_button">
+          <svg viewBox="0 0 24 24" height="22" fill="currentColor">
+            <path fill="none" d="M0 0h24v24H0z"/>
+            <path d="M3 5h18v2H3zM3 11h18v2H3zM3 17h18v2H3z"/>
+          </svg>
+        </button>
+      </header>
+
+      <!-- ==================== MAIN CONTENT ==================== -->
+      <main id="AppContainer" data-testid="AppContainer" class="mc-main">
+
+        <div class="mc-content-wrapper">
+
+          <!-- ===== TITLE GRID SECTION ===== -->
+          <div class="titles-section">
+            <div class="titles-header">
+              <h2 class="titles-heading" data-testid="homepage_covering_text">
+                I'm interested in covering titles releasing in
+                <div class="month-selector-wrapper">
+                  <div class="month-selector" id="monthSelector" tabindex="0" role="button" aria-haspopup="listbox" aria-expanded="false" data-testid="homepage_month_selector">
+                    <span class="month-selector-value" id="monthSelectorValue">July</span>
+                    <svg class="month-selector-caret" viewBox="0 0 24 24" fill="currentColor" data-testid="hawkins-dropdown-caret-icon">
+                      <path fill="none" d="M0 24V0h24v24z"/>
+                      <path d="M18 9l-6 6-6-6h12z"/>
+                    </svg>
+                  </div>
+                  <ul class="month-dropdown-list" id="monthDropdownList" role="listbox" aria-hidden="true">
+                    <li class="month-dropdown-item" role="option" data-month="January">January</li>
+                    <li class="month-dropdown-item" role="option" data-month="February">February</li>
+                    <li class="month-dropdown-item" role="option" data-month="March">March</li>
+                    <li class="month-dropdown-item" role="option" data-month="April">April</li>
+                    <li class="month-dropdown-item" role="option" data-month="May">May</li>
+                    <li class="month-dropdown-item" role="option" data-month="June">June</li>
+                    <li class="month-dropdown-item month-dropdown-item--selected" role="option" data-month="July" aria-selected="true">July</li>
+                    <li class="month-dropdown-item" role="option" data-month="August">August</li>
+                    <li class="month-dropdown-item" role="option" data-month="September">September</li>
+                    <li class="month-dropdown-item" role="option" data-month="October">October</li>
+                    <li class="month-dropdown-item" role="option" data-month="November">November</li>
+                    <li class="month-dropdown-item" role="option" data-month="December">December</li>
+                  </ul>
+                </div>
+              </h2>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="filter-tabs-container">
+              <div class="filter-tabs" role="tablist" aria-label="Content type filter" id="filterTabs">
+                <button class="filter-tab active" role="tab" aria-selected="true" data-filter="all">All</button>
+                <button class="filter-tab" role="tab" aria-selected="false" data-filter="series">Series</button>
+                <button class="filter-tab" role="tab" aria-selected="false" data-filter="film">Film</button>
+                <button class="filter-tab" role="tab" aria-selected="false" data-filter="documentary">Documentary</button>
+                <button class="filter-tab" role="tab" aria-selected="false" data-filter="standup">Stand-Up</button>
+                <button class="filter-tab" role="tab" aria-selected="false" data-filter="kids">Kids</button>
+                <button class="filter-tab" role="tab" aria-selected="false" data-filter="originals">Only On Netflex</button>
+              </div>
+            </div>
+
+            <div class="titles-divider"></div>
+
+            <!-- Title Cards Grid -->
+            <div class="title-cards-grid" id="titleCardsGrid">
+
+              <!-- Card 1 -->
+              <article class="title-card" data-type="series" data-testid="title-card">
+                <a href="{% url 'mediacenter' %}" class="title-card-link">
+                  <div class="title-card-img-wrap">
+                    <img
+                      src="{% static 'pic/peaky5.webp' %}"
+                      alt="Peaky Blinders Season 5"
+                      class="title-card-img"
+                      loading="lazy"
+                      onerror="this.src='https://via.placeholder.com/290x410/141414/E50914?text=NETFLIX'"/>
+                    <div class="title-card-overlay">
+                      <span class="title-card-badge series-badge">SERIES</span>
+                      <div class="title-card-actions">
+                        <button class="title-card-action-btn" aria-label="Save title">
+                          <svg viewBox="0 0 24 24" height="18" fill="currentColor"><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="title-card-info">
+                    <h3 class="title-card-title">Peaky Blinders</h3>
+                    <p class="title-card-meta">Season 5 &nbsp;·&nbsp; July 2025</p>
+                    <span class="title-card-tag netflix-tag">Only On Netflex</span>
+                  </div>
+                </a>
+              </article>
+
+              <!-- Card 2 -->
+              <article class="title-card" data-type="film">
+                <a href="{% url 'mediacenter' %}" class="title-card-link">
+                  <div class="title-card-img-wrap">
+                    <img
+                      src="{% static 'pic/pacific.jpg' %}"
+                      alt="Pacific Rim"
+                      class="title-card-img"
+                      loading="lazy"
+                      onerror="this.src='https://via.placeholder.com/290x410/141414/E50914?text=NETFLIX'"/>
+                    <div class="title-card-overlay">
+                      <span class="title-card-badge film-badge">FILM</span>
+                      <div class="title-card-actions">
+                        <button class="title-card-action-btn" aria-label="Save title">
+                          <svg viewBox="0 0 24 24" height="18" fill="currentColor"><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="title-card-info">
+                    <h3 class="title-card-title">Pacific Rim</h3>
+                    <p class="title-card-meta">Film &nbsp;·&nbsp; July 4, 2025</p>
+                  </div>
+                </a>
+              </article>
+
+              <!-- Card 3 -->
+              <article class="title-card" data-type="documentary">
+                <a href="{% url 'mediacenter' %}" class="title-card-link">
+                  <div class="title-card-img-wrap">
+                    <img
+                      src="{% static 'pic/our_planet_poster.png' %}"
+                      alt="Our Planet III"
+                      class="title-card-img"
+                      loading="lazy"
+                      onerror="this.src='https://via.placeholder.com/290x410/141414/E50914?text=NETFLIX'"/>
+                    <div class="title-card-overlay">
+                      <span class="title-card-badge doc-badge">DOCUMENTARY</span>
+                    </div>
+                  </div>
+                  <div class="title-card-info">
+                    <h3 class="title-card-title">Our Planet III</h3>
+                    <p class="title-card-meta">Documentary &nbsp;·&nbsp; July 11, 2025</p>
+                  </div>
+                </a>
+              </article>
+
+              <!-- Card 4 -->
+              <article class="title-card" data-type="series">
+                <a href="{% url 'mediacenter' %}" class="title-card-link">
+                  <div class="title-card-img-wrap">
+                    <img
+                      src="{% static 'pic/peaky1.jpg' %}"
+                      alt="Peaky Blinders Season 1"
+                      class="title-card-img"
+                      loading="lazy"
+                      onerror="this.src='https://via.placeholder.com/290x410/141414/E50914?text=NETFLIX'"/>
+                    <div class="title-card-overlay">
+                      <span class="title-card-badge series-badge">SERIES</span>
+                    </div>
+                  </div>
+                  <div class="title-card-info">
+                    <h3 class="title-card-title">Peaky Blinders</h3>
+                    <p class="title-card-meta">Season 1 &nbsp;·&nbsp; July 6, 2025</p>
+                    <span class="title-card-tag netflix-tag">Only On Netflex</span>
+                  </div>
+                </a>
+              </article>
+
+              <!-- Card 5 -->
+              <article class="title-card" data-type="standup">
+                <a href="{% url 'mediacenter' %}" class="title-card-link">
+                  <div class="title-card-img-wrap">
+                    <img
+                      src="{% static 'pic/standup_comedy_poster.png' %}"
+                      alt="Live Special"
+                      class="title-card-img"
+                      loading="lazy"
+                      onerror="this.src='https://via.placeholder.com/290x410/141414/E50914?text=NETFLIX'"/>
+                    <div class="title-card-overlay">
+                      <span class="title-card-badge standup-badge">STAND-UP</span>
+                    </div>
+                  </div>
+                  <div class="title-card-info">
+                    <h3 class="title-card-title">Live Special</h3>
+                    <p class="title-card-meta">Stand-Up Comedy &nbsp;·&nbsp; July 15, 2025</p>
+                  </div>
+                </a>
+              </article>
+
+              <!-- Card 6 -->
+              <article class="title-card" data-type="film">
+                <a href="{% url 'mediacenter' %}" class="title-card-link">
+                  <div class="title-card-img-wrap">
+                    <img
+                      src="{% static 'pic/pacific2.jpg' %}"
+                      alt="Pacific Rim: Uprising"
+                      class="title-card-img"
+                      loading="lazy"
+                      onerror="this.src='https://via.placeholder.com/290x410/141414/E50914?text=NETFLIX'"/>
+                    <div class="title-card-overlay">
+                      <span class="title-card-badge film-badge">FILM</span>
+                    </div>
+                  </div>
+                  <div class="title-card-info">
+                    <h3 class="title-card-title">Pacific Rim: Uprising</h3>
+                    <p class="title-card-meta">Film &nbsp;·&nbsp; July 3, 2025</p>
+                  </div>
+                </a>
+              </article>
+
+              <!-- Card 7 -->
+              <article class="title-card" data-type="kids">
+                <a href="{% url 'mediacenter' %}" class="title-card-link">
+                  <div class="title-card-img-wrap">
+                    <img
+                      src="{% static 'pic/kids_cartoon_poster.png' %}"
+                      alt="Space Adventures"
+                      class="title-card-img"
+                      loading="lazy"
+                      onerror="this.src='https://via.placeholder.com/290x410/141414/E50914?text=NETFLIX'"/>
+                    <div class="title-card-overlay">
+                      <span class="title-card-badge kids-badge">KIDS</span>
+                    </div>
+                  </div>
+                  <div class="title-card-info">
+                    <h3 class="title-card-title">Space Adventures</h3>
+                    <p class="title-card-meta">Kids &nbsp;·&nbsp; July 1, 2025</p>
+                  </div>
+                </a>
+              </article>
+
+              <!-- Card 8 -->
+              <article class="title-card" data-type="series">
+                <a href="{% url 'mediacenter' %}" class="title-card-link">
+                  <div class="title-card-img-wrap">
+                    <img
+                      src="{% static 'pic/peaky2.jpg' %}"
+                      alt="Peaky Blinders Season 2"
+                      class="title-card-img"
+                      loading="lazy"
+                      onerror="this.src='https://via.placeholder.com/290x410/141414/E50914?text=NETFLIX'"/>
+                    <div class="title-card-overlay">
+                      <span class="title-card-badge series-badge">SERIES</span>
+                    </div>
+                  </div>
+                  <div class="title-card-info">
+                    <h3 class="title-card-title">Peaky Blinders</h3>
+                    <p class="title-card-meta">Season 2 &nbsp;·&nbsp; July 8, 2025</p>
+                    <span class="title-card-tag netflix-tag">Only On Netflex</span>
+                  </div>
+                </a>
+              </article>
+
+              <!-- Card 9 -->
+              <article class="title-card" data-type="series">
+                <a href="{% url 'mediacenter' %}" class="title-card-link">
+                  <div class="title-card-img-wrap">
+                    <img
+                      src="{% static 'pic/peaky3.jpg' %}"
+                      alt="Peaky Blinders Season 3"
+                      class="title-card-img"
+                      loading="lazy"
+                      onerror="this.src='https://via.placeholder.com/290x410/141414/E50914?text=NETFLIX'"/>
+                    <div class="title-card-overlay">
+                      <span class="title-card-badge series-badge">SERIES</span>
+                    </div>
+                  </div>
+                  <div class="title-card-info">
+                    <h3 class="title-card-title">Peaky Blinders</h3>
+                    <p class="title-card-meta">Season 3 &nbsp;·&nbsp; July 18, 2025</p>
+                    <span class="title-card-tag netflix-tag">Only On Netflex</span>
+                  </div>
+                </a>
+              </article>
+
+              <!-- Card 10 -->
+              <article class="title-card" data-type="series">
+                <a href="{% url 'mediacenter' %}" class="title-card-link">
+                  <div class="title-card-img-wrap">
+                    <img
+                      src="{% static 'pic/peaky4.jpg' %}"
+                      alt="Peaky Blinders Season 4"
+                      class="title-card-img"
+                      loading="lazy"
+                      onerror="this.src='https://via.placeholder.com/290x410/141414/E50914?text=NETFLIX'"/>
+                    <div class="title-card-overlay">
+                      <span class="title-card-badge series-badge">SERIES</span>
+                    </div>
+                  </div>
+                  <div class="title-card-info">
+                    <h3 class="title-card-title">Peaky Blinders</h3>
+                    <p class="title-card-meta">Season 4 &nbsp;·&nbsp; July 22, 2025</p>
+                    <span class="title-card-tag netflix-tag">Only On Netflex</span>
+                  </div>
+                </a>
+              </article>
+
+              <!-- Card 11 -->
+              <article class="title-card" data-type="series">
+                <a href="{% url 'mediacenter' %}" class="title-card-link">
+                  <div class="title-card-img-wrap">
+                    <img
+                      src="{% static 'pic/peaky6.jpg' %}"
+                      alt="Peaky Blinders Season 6"
+                      class="title-card-img"
+                      loading="lazy"
+                      onerror="this.src='https://via.placeholder.com/290x410/141414/E50914?text=NETFLIX'"/>
+                    <div class="title-card-overlay">
+                      <span class="title-card-badge series-badge">SERIES</span>
+                    </div>
+                  </div>
+                  <div class="title-card-info">
+                    <h3 class="title-card-title">Peaky Blinders</h3>
+                    <p class="title-card-meta">Season 6 &nbsp;·&nbsp; July 25, 2025</p>
+                    <span class="title-card-tag netflix-tag">Only On Netflex</span>
+                  </div>
+                </a>
+              </article>
+
+            </div><!-- /title-cards-grid -->
+
+            <!-- Show More Button -->
+            <div class="show-more-container">
+              <button class="show-more-btn" id="showMoreBtn" data-testid="show_more_button">
+                Show August titles
+              </button>
+            </div>
+
+          </div><!-- /titles-section -->
+
+
+          <!-- ===== LATEST NEWS SECTION ===== -->
+          <section class="latest-news-section" aria-label="Latest news">
+            <h2 class="latest-news-heading">Latest news</h2>
+
+            <div class="news-cards-scroll">
+              <div class="news-cards-row">
+
+                <!-- News Card 1 -->
+                <article class="news-card">
+                  <a href="https://about.netflix.com/en/newsroom" target="_blank" rel="noopener noreferrer" class="news-card-link">
+                    <div class="news-card-img-wrap">
+                      <img
+                        src="https://occ-0-2041-2043.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABSdMfnqL8c2hGJXfAZRrA0W2PGV-GkxXhtX-Kq7aT3G6.jpg"
+                        alt="Netflex Announces Record-Breaking Q2 2025 Results"
+                        class="news-card-img"
+                        loading="lazy"
+                        onerror="this.src='https://via.placeholder.com/380x210/232323/E50914?text=NETFLIX+NEWS'"/>
+                    </div>
+                    <div class="news-card-body">
+                      <span class="news-card-category">Press Release</span>
+                      <h3 class="news-card-title">netflex Announces Record-Breaking Q2 2025 Results with 301 Million Paid Memberships</h3>
+                      <p class="news-card-excerpt">netflex today announced financial results for the second quarter ended June 30, 2025, reporting record subscriber growth driven by hit titles and live events programming.</p>
+                      <time class="news-card-date" datetime="2025-07-01">July 1, 2025</time>
+                    </div>
+                  </a>
+                </article>
+
+                <div class="news-card-divider"></div>
+
+                <!-- News Card 2 -->
+                <article class="news-card">
+                  <a href="https://about.netflix.com/en/newsroom" target="_blank" rel="noopener noreferrer" class="news-card-link">
+                    <div class="news-card-img-wrap">
+                      <img
+                        src="https://occ-0-2041-2043.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABf_YfzrM-c_cbLqhJbf-Jmq8tS1YjCqyGJr-6u0pCiGi.jpg"
+                        alt="Wednesday Season 2 Trailer"
+                        class="news-card-img"
+                        loading="lazy"
+                        onerror="this.src='https://via.placeholder.com/380x210/232323/E50914?text=NETFLIX+NEWS'"/>
+                    </div>
+                    <div class="news-card-body">
+                      <span class="news-card-category">Series</span>
+                      <h3 class="news-card-title">Wednesday Season 2: Everything You Need to Know Before the Premiere</h3>
+                      <p class="news-card-excerpt">The Addams Family's darkest daughter returns with a brand-new cast of characters, new mysteries to solve at Nevermore Academy, and even more of her signature deadpan wit.</p>
+                      <time class="news-card-date" datetime="2025-07-01">July 1, 2025</time>
+                    </div>
+                  </a>
+                </article>
+
+                <div class="news-card-divider"></div>
+
+                <!-- News Card 3 -->
+                <article class="news-card">
+                  <a href="https://about.netflix.com/en/newsroom" target="_blank" rel="noopener noreferrer" class="news-card-link">
+                    <div class="news-card-img-wrap">
+                      <img
+                        src="https://occ-0-2041-2043.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABTcUDj7RIPpH0PJO0FQjSECGz-K3OZ.jpg"
+                        alt="Squid Game Season 3 Announcement"
+                        class="news-card-img"
+                        loading="lazy"
+                        onerror="this.src='https://via.placeholder.com/380x210/232323/E50914?text=NETFLIX+NEWS'"/>
+                    </div>
+                    <div class="news-card-body">
+                      <span class="news-card-category">Series</span>
+                      <h3 class="news-card-title">Squid Game Season 3 Is Here: The Final Chapter of the Global Phenomenon</h3>
+                      <p class="news-card-excerpt">Hwang Dong-hyuk's groundbreaking survival drama returns for its final season, delivering an explosive conclusion to the story that captivated the world.</p>
+                      <time class="news-card-date" datetime="2025-06-30">June 30, 2025</time>
+                    </div>
+                  </a>
+                </article>
+
+              </div>
+            </div>
+
+            <div class="news-read-more-container">
+              <a href="https://about.netflix.com/en/newsroom" target="_blank" rel="noopener noreferrer"
+                class="mc-outline-btn" data-testid="read_more_news_button">
+                Read more news in the Newsroom
+              </a>
+            </div>
+          </section>
+
+
+          <!-- ===== COMPANY ASSETS SECTION ===== -->
+          <div class="company-assets-banner">
+            <div class="company-assets-overlay">
+              <h1 class="company-assets-heading">Looking for company assets?</h1>
+              <p class="company-assets-body">Get more images and information about netflex on our company site.</p>
+              <a href="https://about.netflix.com/en/company-assets" target="_blank" rel="noopener noreferrer" class="mc-outline-btn">
+                Go to About netflex
+              </a>
+            </div>
+          </div>
+
+        </div><!-- /mc-content-wrapper -->
+
+      </main><!-- /mc-main -->
+
+
+      <!-- ==================== FOOTER ==================== -->
+      <footer class="mc-footer" role="contentinfo">
+        <nav class="mc-footer-nav" aria-label="Footer navigation">
+
+          <!-- Company Column -->
+          <ul class="footer-col">
+            <li class="footer-col-heading">Company</li>
+            <li><a class="footer-link" href="https://about.netflix.com/en/" target="_blank" rel="noopener noreferrer">About Netflex</a></li>
+            <li><a class="footer-link" href="https://about.netflix.com/en/newsroom" target="_blank" rel="noopener noreferrer">Newsroom</a></li>
+            <li><a class="footer-link" href="https://about.netflix.com/en/company-assets" target="_blank" rel="noopener noreferrer">Company Assets</a></li>
+            <li><a class="footer-link" href="https://netflix.com" target="_blank" rel="noopener noreferrer">Start watching</a></li>
+          </ul>
+
+          <!-- Connect Column -->
+          <ul class="footer-col">
+            <li class="footer-col-heading">Connect</li>
+            <li><a class="footer-link" href="{% url 'mediacenter' %}">Contact Us</a></li>
+            <li class="footer-social-row">
+              <!-- Twitter/X -->
+              <a class="footer-social-link" href="https://twitter.com/netflix" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                <svg viewBox="0 0 24 24" class="footer-social-icon" fill="currentColor">
+                  <path fill="none" d="M0 24V0h24v24z"/>
+                  <path d="M20.77 8.21A12.66 12.66 0 018 21a12.7 12.7 0 01-6.88-2 9.65 9.65 0 001.08 0 8.93 8.93 0 005.56-1.91A4.48 4.48 0 013.6 14a4.8 4.8 0 00.85.07 4.66 4.66 0 001.18-.15A4.48 4.48 0 012 9.5v-.06a4.55 4.55 0 002 .57A4.49 4.49 0 012.68 4a12.72 12.72 0 009.23 4.69 5.07 5.07 0 01-.11-1 4.48 4.48 0 017.75-3.06 8.82 8.82 0 002.84-1.09 4.41 4.41 0 01-2 2.47 8.63 8.63 0 002.61-.7 9.53 9.53 0 01-2.25 2.32 5.52 5.52 0 01.02.58z"/>
+                </svg>
+              </a>
+              <!-- Instagram -->
+              <a class="footer-social-link" href="https://www.instagram.com/netflix" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" class="footer-social-icon" fill="currentColor">
+                  <path fill="none" d="M0 24V0h24v24z"/>
+                  <path d="M21.93 16.12a6 6 0 01-1.62 4.19 5.88 5.88 0 01-4.19 1.62c-1.65.09-6.59.09-8.24 0a5.94 5.94 0 01-4.19-1.62 5.92 5.92 0 01-1.62-4.19c-.07-1.65-.07-6.6 0-8.25a5.92 5.92 0 011.62-4.19 6 6 0 014.19-1.61c1.65-.09 6.59-.09 8.24 0a5.93 5.93 0 014.19 1.62 5.92 5.92 0 011.62 4.19c.07 1.65.07 6.59 0 8.24zM20.2 12c0-1.45.12-4.58-.4-5.89a3.38 3.38 0 00-1.9-1.9c-1.32-.52-4.44-.41-5.9-.41s-4.58-.12-5.89.41a3.35 3.35 0 00-1.9 1.9c-.52 1.31-.4 4.44-.4 5.89s-.12 4.58.4 5.89a3.32 3.32 0 001.9 1.9c1.31.52 4.44.41 5.89.41s4.58.12 5.9-.41a3.35 3.35 0 001.9-1.9c.52-1.31.4-4.44.4-5.89zm-3.07 0A5.13 5.13 0 1112 6.87 5.12 5.12 0 0117.13 12zm-1.79 0A3.34 3.34 0 1012 15.33 3.34 3.34 0 0015.34 12zm2-4.14a1.2 1.2 0 111.19-1.2 1.2 1.2 0 01-1.19 1.2z"/>
+                </svg>
+              </a>
+              <!-- Facebook -->
+              <a class="footer-social-link" href="https://www.facebook.com/netflix" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <svg viewBox="0 0 24 24" class="footer-social-icon" fill="currentColor">
+                  <path fill="none" d="M0 24V0h24v24z"/>
+                  <path d="M14 13.16V22h-4v-8.84H6.84V9.51H10V6.73c0-3.16 1.89-4.91 4.77-4.91a19.27 19.27 0 012.83.25v3.1H16a1.83 1.83 0 00-2 2v2.34h3.5l-.56 3.65z"/>
+                </svg>
+              </a>
+              <!-- YouTube -->
+              <a class="footer-social-link" href="https://www.youtube.com/netflix" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                <svg viewBox="0 0 24 24" class="footer-social-icon" fill="currentColor">
+                  <path d="M21.8 8.001a2.75 2.75 0 00-1.937-1.949C18.14 5.6 12 5.6 12 5.6s-6.14 0-7.863.452A2.75 2.75 0 002.2 8.001 28.8 28.8 0 001.75 12a28.8 28.8 0 00.45 3.999 2.75 2.75 0 001.937 1.948C5.86 18.4 12 18.4 12 18.4s6.14 0 7.863-.453a2.75 2.75 0 001.937-1.948A28.8 28.8 0 0022.25 12a28.8 28.8 0 00-.45-3.999zM9.75 14.85V9.15L15.5 12l-5.75 2.85z"/>
+                </svg>
+              </a>
+            </li>
+          </ul>
+
+          <!-- Legal Column -->
+          <ul class="footer-col">
+            <li class="footer-col-heading">Legal</li>
+            <li><a class="footer-link" href="https://help.netflix.com/en/legal/media-terms-and-conditions" target="_blank">Terms and Conditions</a></li>
+            <li><a class="footer-link" href="https://help.netflix.com/en/legal/corporateprivacy" target="_blank" rel="noopener noreferrer">Privacy</a></li>
+            <li><div class="footer-link footer-link--clickable" id="cookiePrefLink" role="button" tabindex="0">Cookie Preferences</div></li>
+          </ul>
+
+        </nav>
+
+        <!-- Copyright -->
+        <div class="footer-copyright">
+          <span>&copy; <span id="footerYear">2025</span> Netflex, Inc.</span>
+        </div>
+      </footer>
+
+    </div><!-- /bg-blur-wrapper -->
+  </div><!-- /mc-app -->
+</div><!-- /__next -->
+
+<!-- Cookie Banner -->
+<div id="cookieBanner" class="cookie-banner" role="alert" aria-live="polite">
+  <div class="cookie-banner-content">
+    <p class="cookie-banner-text">
+      Netflex uses cookies for advertising personalization and other purposes.
+      <a href="https://help.netflix.com/en/legal/corporateprivacy" target="_blank" rel="noopener noreferrer" class="cookie-banner-link">Learn More</a>
+      or
+      <button class="cookie-banner-link cookie-banner-link--btn" id="changeCookieBtn">change your cookie settings</button>
+    </p>
+    <button class="cookie-dismiss-btn" id="cookieDismissBtn" aria-label="Dismiss cookie notice">Dismiss</button>
+  </div>
+</div>
+
+<script src="{% static 'js/site.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,300 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflex Help Center</title>
+    <link rel="icon" href="{% static 'pic/netflix.webp' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Inter:wght@700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/site.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive-fixes.css' %}">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="{% static 'js/site.js' %}" defer></script>
+</head>
+<body class="signin">
+    <div class="helpcenter-box">
+        <div class="helpcentertitle">
+            <a href="{% url 'landing' %}"><img src="{% static 'pic/nname.png' %}" class="logoinhelpcenter"></a>
+            <div class="helpcenterheader">
+                <span class="helpcenter-divider"></span>
+                <span class="helpcenter-title"><a href="{% url 'helpcenter' %}">Help Center</a></span>
+            </div>
+        </div>
+        <div class="helpcenter-actions">
+            <button class="helpcenterlogin"><a href="{% url 'signin' %}">Sign In</a></button>
+        </div>
+    </div>
+    <hr class="helpcenterdivider">
+    <div class="helpecenter-main">
+        <h1 class="helpecenter-main-title">How can we help?</h1>
+    </div>
+
+    <div class="helpcenter-stickybar">
+        <div class="helpecenter-main-search">
+            <i class="helpcentersearchicon" data-lucide="search"></i>
+            <input type="text" class="helpcentersearchbox" id="helpcenterSearchInput" placeholder="Type a question, topic or issue" autocomplete="off">
+            <i class="helpcentersearchclear" data-lucide="x" id="helpcenterSearchClear"></i>
+            <div class="helpcenter-searchresults" id="helpcenterSearchResults"></div>
+        </div>
+    </div>
+
+    <div class="helpecenter-main-faq">
+        <div class="helpecenter-main-faq-item">
+            <p class="helpecenter-main-faq-item-title"><strong>Popular topics:</strong> <a href="#">How to sign up for netflex</a>, <a href="#">Plan and Pricing</a>, <a href="#">can't sign in to netflex</a>, <a href="#">Parent controls on netflex</a></p>
+        </div>
+    </div>
+
+    <div class="helpcenterexplore">
+        <p><a href="#helpcenterquestions"><b>Explore Topics</b></a></p>
+        <i data-lucide="arrow-down"></i>
+    </div>
+
+    <div class="helpcenterquestions" id="helpcenterquestions">
+        <div class="helpcenterquestions-cards">
+            <div class="helpcenterquestions-card">
+                <div class="helpcenterquestions-category">
+                    <i data-lucide="user" class="helpcenterquestions-category-icon"></i>
+                    <h2 class="helpcenterquestions-category-title">Account and Billing</h2>
+                </div>
+
+                <details class="helpcenterquestions-group">
+                    <summary class="helpcenterquestions-group-title">
+                        Account Settings
+                        <i data-lucide="chevron-down" class="helpcenterquestions-chevron"></i>
+                    </summary>
+                    <ul class="helpcenterquestions-list">
+                        <li><i data-lucide="file-text"></i><a href="#">How to change your plan</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">How to cancel netflex</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">How to change or reset your password</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">How to update netflex account information</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">Sharing your netflex account</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">How to keep your account secure</a></li>
+                    </ul>
+                </details>
+
+                <details class="helpcenterquestions-group">
+                    <summary class="helpcenterquestions-group-title">
+                        Paying for netflex
+                        <i data-lucide="chevron-down" class="helpcenterquestions-chevron"></i>
+                    </summary>
+                    <ul class="helpcenterquestions-list">
+                        <li><i data-lucide="file-text"></i><a href="#">Billing and Payments</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">netflex Gift Cards</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">How to remove payment methods from your account</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">How to find your billing date</a></li>
+                    </ul>
+                </details>
+            </div>
+
+            <div class="helpcenterquestions-card">
+                <div class="helpcenterquestions-category">
+                    <i data-lucide="wrench" class="helpcenterquestions-category-icon helpcenterquestions-category-icon--pink"></i>
+                    <h2 class="helpcenterquestions-category-title">Fix a Problem</h2>
+                </div>
+
+                <details class="helpcenterquestions-group" open>
+                    <summary class="helpcenterquestions-group-title">
+                        Account Issues
+                        <i data-lucide="chevron-down" class="helpcenterquestions-chevron"></i>
+                    </summary>
+                    <ul class="helpcenterquestions-list">
+                        <li><i data-lucide="file-text"></i><a href="#">Can't sign in to netflex</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">netflex says to sign up when trying to sign in</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">netflex says account is already in use</a></li>
+                    </ul>
+                </details>
+
+                <details class="helpcenterquestions-group">
+                    <summary class="helpcenterquestions-group-title">
+                        Billing Issues
+                        <i data-lucide="chevron-down" class="helpcenterquestions-chevron"></i>
+                    </summary>
+                    <ul class="helpcenterquestions-list">
+                        <li><i data-lucide="file-text"></i><a href="#">netflex says 'Your account is on hold because of a problem with your last payment.'</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">Unrecognized or unauthorized charges from netflex</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">Charged twice by netflex</a></li>
+                    </ul>
+                </details>
+
+                <details class="helpcenterquestions-group">
+                    <summary class="helpcenterquestions-group-title">
+                        Error Codes
+                        <i data-lucide="chevron-down" class="helpcenterquestions-chevron"></i>
+                    </summary>
+                    <ul class="helpcenterquestions-list">
+                        <li><i data-lucide="file-text"></i><a href="#">netflex isn't working</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">netflex Error NW-2-5</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">netflex Error ui-800-3</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">netflex Error tvq-pb-101</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">netflex Error 113</a></li>
+                    </ul>
+                </details>
+
+                <details class="helpcenterquestions-group">
+                    <summary class="helpcenterquestions-group-title">
+                        Problems Watching
+                        <i data-lucide="chevron-down" class="helpcenterquestions-chevron"></i>
+                    </summary>
+                    <ul class="helpcenterquestions-list">
+                        <li><i data-lucide="file-text"></i><a href="#">Fix a problem on your Android phone or tablet</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">Fix a problem on your TV or streaming media player</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">netflex says, 'This app is not compatible with your device.'</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">Browser isn't supported</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">Black screen with sound</a></li>
+                    </ul>
+                </details>
+            </div>
+
+            <div class="helpcenterquestions-card">
+                <div class="helpcenterquestions-category">
+                    <i data-lucide="monitor-smartphone" class="helpcenterquestions-category-icon helpcenterquestions-category-icon--purple"></i>
+                    <h2 class="helpcenterquestions-category-title">Watching and Playing</h2>
+                </div>
+
+                <details class="helpcenterquestions-group" open>
+                    <summary class="helpcenterquestions-group-title">
+                        Profiles
+                        <i data-lucide="chevron-down" class="helpcenterquestions-chevron"></i>
+                    </summary>
+                    <ul class="helpcenterquestions-list">
+                        <li><i data-lucide="file-text"></i><a href="#">How to create, edit, or delete profiles</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">How to change the language on netflex</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">Profile transfers</a></li>
+                    </ul>
+                </details>
+
+                <details class="helpcenterquestions-group">
+                    <summary class="helpcenterquestions-group-title">
+                        Features and Settings
+                        <i data-lucide="chevron-down" class="helpcenterquestions-chevron"></i>
+                    </summary>
+                    <ul class="helpcenterquestions-list">
+                        <li><i data-lucide="file-text"></i><a href="#">Using netflex outside of your home</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">How to get the best video quality</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">How to use subtitles, captions, or choose audio language</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">How to use 'My List'</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">Accessibility on netflex</a></li>
+                    </ul>
+                </details>
+
+                <details class="helpcenterquestions-group">
+                    <summary class="helpcenterquestions-group-title">
+                        TV Shows and Movies
+                        <i data-lucide="chevron-down" class="helpcenterquestions-chevron"></i>
+                    </summary>
+                    <ul class="helpcenterquestions-list">
+                        <li><i data-lucide="file-text"></i><a href="#">How to download titles to watch offline</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">How to search and browse netflex</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">How to hide titles from viewing history</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">How to remove titles from the 'Continue Watching' row</a></li>
+                    </ul>
+                </details>
+
+                <details class="helpcenterquestions-group">
+                    <summary class="helpcenterquestions-group-title">
+                        Parental Controls
+                        <i data-lucide="chevron-down" class="helpcenterquestions-chevron"></i>
+                    </summary>
+                    <ul class="helpcenterquestions-list">
+                        <li><i data-lucide="file-text"></i><a href="#">Parental controls on netflex</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">How to add, edit, or remove a profile PIN</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">How to set profile maturity ratings or block titles</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">How to create a profile for kids</a></li>
+                    </ul>
+                </details>
+
+                <details class="helpcenterquestions-group">
+                    <summary class="helpcenterquestions-group-title">
+                        Games
+                        <i data-lucide="chevron-down" class="helpcenterquestions-chevron"></i>
+                    </summary>
+                    <ul class="helpcenterquestions-list">
+                        <li><i data-lucide="file-text"></i><a href="#">Play games on mobile devices</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">How to find and install netflex Games</a></li>
+                    </ul>
+                </details>
+            </div>
+
+            <div class="helpcenterquestions-card">
+                <div class="helpcenterquestions-category">
+                    <i data-lucide="rocket" class="helpcenterquestions-category-icon helpcenterquestions-category-icon--indigo"></i>
+                    <h2 class="helpcenterquestions-category-title">Getting Started</h2>
+                </div>
+
+                <details class="helpcenterquestions-group" open>
+                    <summary class="helpcenterquestions-group-title">
+                        Joining netflex
+                        <i data-lucide="chevron-down" class="helpcenterquestions-chevron"></i>
+                    </summary>
+                    <ul class="helpcenterquestions-list">
+                        <li><i data-lucide="file-text"></i><a href="#">What is netflex?</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">How to pay for netflex</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">Getting started with netflex</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">Plans and Pricing</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">Extra Members</a></li>
+                    </ul>
+                </details>
+
+                <details class="helpcenterquestions-group">
+                    <summary class="helpcenterquestions-group-title">
+                        Device Setup
+                        <i data-lucide="chevron-down" class="helpcenterquestions-chevron"></i>
+                    </summary>
+                    <ul class="helpcenterquestions-list">
+                        <li><i data-lucide="file-text"></i><a href="#">netflex supported browsers and system requirements</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">How to download the netflex app</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">How to use netflex on your Android phone or tablet</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">How to watch netflex on your TV</a></li>
+                        <li><i data-lucide="file-text"></i><a href="#">How to use netflex on your iPhone or iPad</a></li>
+                    </ul>
+                </details>
+            </div>
+
+            <div class="helpcenterquestions-card helpcenterquestions-quicklinks">
+                <h2 class="helpcenterquestions-quicklinks-title">Quick Links</h2>
+                <ul class="helpcenterquestions-quicklinks-list">
+                    <li><i data-lucide="lock"></i><a href="#">Reset password</a></li>
+                    <li><i data-lucide="mail"></i><a href="#">Update email</a></li>
+                    <li><i data-lucide="circle-help"></i><a href="#">Get help signing in</a></li>
+                    <li><i data-lucide="credit-card"></i><a href="#">Update payment method</a></li>
+                    <li><i data-lucide="megaphone"></i><a href="#">Request TV shows or movies</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="helpcenter-needmorehelp">
+            <p class="helpcenter-needmorehelp-title">Need more help?</p>
+            <button class="helpcenter-contactus"><a href="#">Contact Us</a></button>
+        </div>
+    </div>
+
+    <footer class="helpcenter-footer">
+        <div class="helpcenter-footer-lang">
+            <button class="helpcenter-footer-langbtn" id="helpcenterLangBtn" type="button">
+                <span id="helpcenterLangLabel">English</span>
+                <i data-lucide="chevron-down" class="helpcenter-footer-langchevron"></i>
+            </button>
+            <ul class="helpcenter-footer-langdropdown" id="helpcenterLangDropdown">
+                <li data-lang="English">English</li>
+                <li data-lang="Español">Español</li>
+                <li data-lang="Français">Français</li>
+                <li data-lang="Tiếng Việt">Tiếng Việt</li>
+                <li data-lang="ភាសាខ្មែរ">ភាសាខ្មែរ</li>
+            </ul>
+        </div>
+        <div class="helpcenter-footer-links">
+            <a href="{% url 'termofuse' %}">Terms of Use</a>
+            <a href="{% url 'privacy' %}">Privacy</a>
+            <a href="#">Cookie Preferences</a>
+            <a href="{% url 'corporateinfo' %}">Corporate Information</a>
+        </div>
+    </footer>
+
+</body>
+</html>
